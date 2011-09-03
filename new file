@@ -1,0 +1,141 @@
+; notes from "The Little Schemer" -> Chapter 7 Friends and Relations
+
+* member?
+(define member?
+  (lambda (a lat)
+    (cond
+      ((null? lat) #f)
+      (else (or (eq? (car lat) a)
+              (member? a (cdr lat)))))))
+* set? -> ugly version
+(define set?
+  (lambda (lat)
+    (cond
+      ((null? lat) #t)
+      (else
+        (cond
+          ((member? (car lat) (cdr lat))
+	   #f)
+	  (else (set? (cdr lat))))))))
+
+* set? -> pretty version
+(define set?
+  (lambda (lat)
+    (cond
+      ((null? lat) #t)
+      ((member? (car lat) (cdr lat)) #f)
+      (else (set? (cdr lat))))))
+* makeset -> using member?
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((member? (car lat) (cdr lat))
+       (makeset (cdr lat)))
+       (else (cons (car lat)
+               (makeset (cdr lat)))))))
+* makeset -> using multirember
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cons (car lat)
+              (makeset
+	        (multirember (car lat)
+		  (cdr lat))))))))
+* multirember
+(define multirember
+  (lambda (a lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) a)
+	   (multirember a (cdr lat)))
+	   (else (cons (car lat)
+	           (multirember a
+		     (cdr lat)))))))))
+* subset? -> long version
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      (else (cond
+              ((member? (car set1) set2)
+	       (subset? (cdr set1) set2))
+	       (else #f))))))
+* subset? -> shorter version
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      ((member? (car set1) set2)
+      (subset? (cdr set1) set2))
+     (else #f))))
+* subset? -> with (and ...)
+* eqset?
+* intersect?
+* union
+* xxx 
+* intersectall
+* a-pair?
+* first
+* second
+* build
+* third
+* fun?
+* revrel
+* revpair
+* fullfun?
+* one-to-one?
+* cookies
+(define cookies
+  (lambda ()
+    (bake
+      (quote (350 degrees))
+      (quote (12 minutes))
+      (mix
+        (quote (walnuts 1 cup))
+	(quote (chocolate-chips 16 ounces))
+	(mix
+	  (mix
+	    (quote (flour 2 cups))
+	    (quote (oatmeal 2 cups))
+	    (quote (salt .5 teaspoon))
+	    (quote (baking-powder 1 teaspoon))
+	    (quote (baking-soda 1 teaspoon)))
+	  (mix
+	    (quote (eggs 2 large))
+	    (quote (vanilla 1 teaspoon))
+	    (cream
+	      (quote (butter 1 cup))
+	      (quote (sugar 2 cups)))))))))
+
+	  
+
+* The Ten Commandments
+** 1 
+** 2 
+** 3 
+** 4
+** 5
+** 6
+** 7
+** 8
+** 9
+** 10
+* The Five Rules
+** The Law of Car
+** The Law of Cdr
+** The Law of Cons
+** The Law of Null?
+** The Law of Eq?
+
+* Questions
+
+Is this a set? (apple peaches apple plum) -> No
+
+True or False: (set? lat)
+where
+  lat is (apples peaches pairs plums      -> #t
+

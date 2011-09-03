@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>The Little Schemer</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="interface.js"></script>
+<script type="text/javascript" src="config.js"></script>
+<style type="text/css" media="all">
+@import 'portlets.css';
+</style>
+</head>
+<body>
+<div id="container">
+	<h2>The Little Schemer</h2>
+	<div id="header">
+		<span id="controls">
+			<a href="#" id="all_open" title="Open">[ + ]</a>
+			<a href="#" id="all_close" title="Close">[ x ]</a>
+		</span>
+		<a href="#" id="all_expand">Expand</a> ~
+		<a href="#" id="all_collapse">Collapse</a> ~
+		<a href="#" id="all_invert">Invert</a>
+	</div><!-- /#header -->
+	<table cellspacing="0" id="columns">
+		<tr>
+			<td>
+				<div class="portlet">
+					<div class="portlet_topper">
+						<a href="#" class="toggle">rember</a>
+					</div>
+					<div class="portlet_content">
+						<p>
+               <pre>
+(define rember
+  (lambda (a lat)
+    (cond
+      ((null? lat) '())
+      ((eq? (car lat) a) (cdr lat))
+      (else (cons (car lat)
+                  (rember a (cdr lat)))))))
+               </pre>						
+						</p>
+					</div>
+				</div>
+				<div class="portlet">
+					<div class="portlet_topper">
+						<a href="#" class="toggle">firsts</a>
+					</div>
+					<div class="portlet_content">
+						<p>
+						   <pre>
+(define firsts
+  (lambda (l)
+    (cond
+      ((null? l) '())
+      (else
+        (cons (car (car l)) (firsts (cdr l)))))))
+						   </pre>
+						</p>
+					</div>
+				</div>
+				<div class="portlet">
+					<div class="portlet_topper">
+						3. <a href="#" class="toggle">Grim</a>
+					</div>
+					<div class="portlet_content">
+						<p>Joon, dood!</p>
+					</div>
+				</div>
+			</td>
+			<td>
+				<div class="portlet">
+					<div class="portlet_topper">
+						4. <a href="#" class="toggle">Pilgrim2010</a>
+					</div>
+					<div class="portlet_content">
+						<h3>HTML5 Up and Running</h3>
+					</div>
+				</div>
+				<div class="portlet">
+					<div class="portlet_topper">
+						5. <a href="#" class="toggle">Pythagorean</a>
+					</div>
+					<div class="portlet_content">
+						<p>a^2 + b^2 = c^2</p>
+					</div>
+				</div>
+				<div class="portlet">
+					<div class="portlet_topper">
+						6. <a href="#" class="toggle">Siebel2009</a>
+					</div>
+					<div class="portlet_content">
+						<ul>
+                     <li>Douglas Crockford</li>
+                     <li>Brendan Eich</li>
+                     <li>Guy Steele</li>
+						</ul>
+					</div>
+				</div>
+			</td>
+			<td>
+				<div class="portlet">
+					<div class="portlet_topper">
+						7. <a href="#" class="toggle">Joe</a>
+					</div>
+					<div class="portlet_content">
+						<p>Mama</p>
+					</div>
+				</div>
+				<div class="portlet">
+					<div class="portlet_topper">
+						8. <a href="#" class="toggle">2+2 = </a>
+					</div>
+					<div class="portlet_content">
+						<p>4</p>
+					</div>
+				</div>
+				<div class="portlet">
+					<div class="portlet_topper">
+						9. <a href="#" class="toggle">HTML5</a>
+					</div>
+					<div class="portlet_content">
+						<p>!DOCTYPE html</p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table><!-- /#columns -->
+	<div id="footer">
+		footer
+	</div><!-- /#footer -->
+</div><!-- /#container -->
+</body>
+</html>

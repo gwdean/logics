@@ -1,0 +1,35 @@
+These are some notes to help us understand
+how to use github. 
+
+Step 0: Set Up Git
+------------------
+We will not deal with that right this
+second. The gory details can be found
+here:
+
+http://help.github.com/linux-set-up-git/
+
+Step 1: Create directory and initialize
+---------------------------------------
+mkdir babel
+cd babel
+git init
+gedit yo.txt
+
+to check status:
+
+git status -s
+
+Step 2: Make a repository on Github
+-----------------------------------
+1. Click on the "New Repository" button in Github
+
+See directions there.
+
+Step 3: Committing
+------------------
+gedit hello.rb
+git add hello.rb
+git commit -m 'my changes'
+git push origin master
+

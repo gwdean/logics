@@ -1,0 +1,28 @@
+(title "The Library of Babel")
+
+(quote "By this art...")
+
+(parag "The universe (which others ...")
+(parag "Like all men of the librar ...")
+(parag "Each wall of each hexagon  ...")
+(parag "First: The Library has exi ...")
+(parag "Second: There are twenty f ...")
+(parag "For many years it was beli ...")
+(parag "Some five hundred years ag ...")
+(parag "When it was announced that ...")
+(parag "At that same period there  ...")
+(parag "That unbridled hopefulness ...")
+(parag "Others, going about it the ...")
+(parag "We also have knowledge of  ...")
+(parag "Infidels claim that the ru ...")
+(parag "Methodical composition dis ...")
+(parag "I have just written the wo ...")
+
+(fnote "The original manuscript ha ...")
+(fnote "In earlier times, there wa ...")
+(fnote "I repeat: In order for a b ...")
+(fnote "Letizia Alvarez de Toledo  ...")
+
+(trans "Andrew Hurley" 1998)
+
+

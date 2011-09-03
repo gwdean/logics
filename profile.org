@@ -1,0 +1,110 @@
+; from DeLong-1970, A Profile of Mathematical Logic
+
+* Chapter 1 Historical background of mathematical logic
+** 1 Introduction
+** 2 Mathematics before Aristotle
+** 3 Argumentation before Aristotle
+** 4 Aristotle's logic
+*** A. Preliminaries
+*** B. Immediate inferences
+*** C. Syllogistic theory
+** 5 Greek mathematics and logic after Aristotle
+*** A. Mathematics
+*** B. Logic
+** 6 Logics from the Stoics to the nineteenth century
+** 7 Summary
+* Chapter 2 Period of transition
+** 8 Introduction
+** 9 Non-Euclidean geometry
+** 10 Mathematics and argumentation
+*** A. Numbers
+*** B. Analytic Geometry
+** 11 Set theory
+** 12 Paradoxes
+** 13 Summary
+* Chapter 3 Mathematical logic
+** 14 Introduction
+** 15 Formal axiomatic method
+** 16 Primary logic: The propositional calculus
+** 17 General logic: The predicate calculus
+** 18 Set-theoretic logic: Higher-order predicate calculi
+* Chapter 4 The metatheory of mathematical logic
+** 19 Introduction
+** 20 The metatheory of the propositional calculus
+** 21 The metatheory of the predicate calculus
+** 22 The theory of recursive functions
+** 23 The metatheory of arithmetic
+*** A. Preliminaries
+*** B. The incompleteness of arithmetic
+*** C. Consistency and categoricalness
+** 24. The metatheory of set theory
+* Chapter 5 Philosophical implications of mathematical logic
+** 25 Introduction
+** 26 Church's thesis
+** 27 The nature of indeterminate statements
+** 28 The problem of unsolved problems
+** 29 The question of consistency
+** 30 Logic and philosophy
+
+* Examples
+
+** 130-131 -> What does "categoricalness" mean?
+Every once in a while you come across an idea that really grabs
+your attention. I had one of those moments last night (2011-08-28)
+when I was reading Howard DeLong's explanation of "categoricalness".
+
+Consider two games: ACE and HOT
+
+Rules of ACE
+------------
+2 players
+9 playing cards lying face up on the table
+A,2,3,4,5,6,7,8,9
+
+The players take turns picking up a card, each player trying to be
+the first to obtain three cards whose sum is 15.
+
+Rules of HOT
+------------
+2 players
+9 plain white cards with one word written on each.
+No word is repeated.
+WASP,BRIM,WOES,HEAR,FORM,TIED,SHIP,TANK,HOT
+
+The players take turns picking up a card, each player trying to be
+the first to hold three cards that have the same letter.
+
+These games are related by what mathematicians call an isomorphism.
+
+For an isomorphism to hold, there must be a one-to-one correspondence
+between elements, and the elements must have the same structural
+relationships.
+
+Correspondence
+--------------
+1 <-> BRIM 
+2 <-> HOT
+3 <-> WASP
+4 <-> WOES
+5 <-> HEAR
+6 <-> TIED
+7 <-> TANK
+8 <-> SHIP
+9 <-> FORM
+
+Note that there are 8 letters that occur in three words, as indicated
+in the following table:
+
+  R          I          H          O
+---------------------------------------
+BRIM(1)    BRIM(1)    HOT(2)     HOT(2)
+HEAR(5)    TIED(6)    HEAR(5)    WOES(4)
+FORM(9)    SHIP(8)    SHIP(8)    FORM(9)
+
+  T          A          S          E
+---------------------------------------
+HOT(2)     WASP(3)    WASP(3)    WOES(4)
+TIED(6)    HEAR(5)    WOES(4)    HEAR(5)
+TANK(7)    TANK(7)    SHIP(8)    TIED(6)
+
+(...to be continued...)

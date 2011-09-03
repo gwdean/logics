@@ -1,0 +1,1431 @@
+* (Foreword ix)
+* (Preface xi)
+Programs accept data and produce data. Designing a program 
+requires a thorough understanding of data; a good program
+reflects the shape of the data it deals with. Most collections
+of data, and hence most programs, are recursive. Recursion is
+the act of defining an object or solving a problem in terms
+of itself.
+
+The goal of this book is to teach the reader to think recursively.
+Our first task is to decide which language to use to communicate
+this concept. There are three obvious choices: a natural language,
+such as English; formal mathematics; or a programming language.
+Natural languages are ambiguous, imprecise, and sometimes awkwardly
+verbose. These are all virtues for general communication, but
+something of a drawback for communicating concisely as precise a 
+concept as recursion. The language of mathematics is the opposite
+of natural language: it can express powerful formal ideas with
+only a few symbols. Unfortunately, the language of mathematics is
+often cryptic and barely accessible without special training. The
+marriage of technology and mathematics presents us with a third,
+almost ideal choice: a programming language. We believe that 
+programming languages are the best way to convey the concept of
+recursion. They share with mathematics the ability to give a formal
+meaning to a set of symbols. But unlike mathematics, programming
+languages can be directly experienced-- you can take the programs
+in this book, observe their behavior, modify them, and experience
+the effect of these modifications.
+
+(...needs to be finished...)
+
+; Chapter 7 -> Friends and Relations
+* ((1. Toys) 2)
+** Law of Car
+The primitive car is defined only for non-
+empty lists.
+** Law of Cdr
+The primitive cdr is defined only for non-
+empty lists. The cdr of any non-empty list
+is always another list.
+** Law of Cons
+The primitive cons takes two arguments.
+The second argument to cons must be a list.
+The result is a list.
+** Law of Null?
+   The primitive null? is defined only for lists.
+** Law of Eq?
+The primitive eq? takes two arguments.
+Each must be a non-numeric atom.
+* ((2. Do It, Do It Again, and Again, and Again ...) 14)
+** lat?
+(define lat?
+  (lambda (l)
+    (cond
+      ((null? l) #t)
+      ((atom? (car l)) (lat? (cdr l)))
+      (else #f))))
+** member?
+(define member?
+  (lambda (a lat)
+    (cond
+      ((null? lat) #f)
+      (else (or (eq? (car lat) a)
+              (member? a (cdr lat)))))))
+** First Commandment (preliminary version)
+Always ask null? as the first question in expressing any function.
+* ((3. Cons the Magnificent) 32)
+** rember -> first version
+(define rember
+  (lambda (a lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) a) (cdr lat))
+	      (else (rember a
+	               (cdr lat))))))))
+** rember -> using cons
+(define rember
+  (lambda (a lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) a) (cdr lat))
+	      (else (cons (car lat)
+	               (rember a
+		         (cdr lat)))))))))
+** rember -> simplified version
+(define rember
+  (lambda (a lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) a) (cdr lat))
+      (else (cons (car lat)
+              (rember a (cdr lat)))))))
+** firsts -> partial version
+(define firsts
+  (lambda (l)
+    (cond
+      ((null? l) ...)
+      (else (cons ... (firsts (cdr l)))))))
+** firsts -> another partial version
+(define firsts
+  (lambda (l)
+    (cond
+      ((null? l) ...)
+      (else (cons (car (car l))
+              (firsts (cdr l)))))))
+** insertR -> version 1
+(define insertR
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) old) (cdr lat))
+	  (else (cons (car lat)
+	           (insertR new old
+		     (cdr lat)))))))))
+** insertR -> version 2
+(define insertR
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) old)
+	       (cons new (cdr lat)))
+	      (else (cons (car lat)
+	              (insertR new old
+		         (cdr lat)))))))))
+** insertR -> version 3
+(define insertR
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) old)
+	       (cons old
+	         (cons new (cdr lat))))
+	      (else (cons (car lat)
+	              (insertR new old
+		        (cdr lat)))))))))
+** insertL
+(define insertL
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) old)
+	      (cons new
+	        (cons old (cdr lat))))
+	      (else (cons (car lat)
+	               (insertL new old
+		          (cdr lat)))))))))
+** subst
+(define subst
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) old)
+	       (cons new (cdr lat)))
+	      (else (cons (car lat)
+	              (subst new old
+		        (cdr lat)))))))))
+** subst2
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) o1)
+	       (cons new (cdr lat))
+	      ((eq? (car lat) o2)
+	       (cons new (cdr lat)))
+	      (else (cons (car lat)
+	              (subst2 new o1 o2
+		        (cdr lat))))))))))
+** multirember
+(define multirember
+  (lambda (a lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) a)
+	   (multirember a (cdr lat)))
+	  (else (cons (car lat)
+	          (multirember a
+		    (cdr lat)))))))))
+** multiinsertR
+(define multiinsertR
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) old)
+	   (cons (car lat)
+	     (cons new
+	       (multiinsertR new old
+	         (cdr lat)))))
+        (else (cons (car lat)
+	        (multiinsertR new old
+		  (cdr lat)))))))))
+** multiinsertL -> version 1
+(define multiinsertL
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) old)
+	  (cons new
+	    (cons old
+	      (multiinsertL new old
+	        lat))))
+	  (else (cons (car lat)
+	          (multiinsertL new old
+		    (cdr lat)))))))))
+** multiinsertL -> version 2
+(define multiinsertL
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) old)
+	   (cons new
+	     (cons old
+	       (multiinsertL new old
+	         (cdr lat)))))
+          (else (cons (car lat)
+	          (multiinsertL new old
+		    (cdr lat)))))))))
+** multisubst
+(define multisubst
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((eq? (car lat) old)
+	       (cons new
+	         (multisubst new old
+		   (cdr lat))))
+	      (else (cons (car lat)
+	              (multisubst new old
+		        (cdr lat)))))))))
+** The Second Commandment
+Use cons to build lists.
+** The Third Commandment
+When building a list, describe the first typical ele-
+ment, and then cons it onto the natural recursion.
+** The Fourth Commandment (preliminary)
+Always change at least one argument while recurring. IT
+must be changed to be closer to termination. The changing
+argument must be tested in the termination condition:
+when using cdr, test termination with null?
+* ((4. Numbers Games) 58)
+** o+
+(define o+
+  (lambda (n m)
+    (cond
+      ((zero? m) n)
+      (else (add1 (o+ n (sub1 m)))))))
+
+** o-
+(define o-
+  (lambda (n m)
+    (cond
+      ((zero? m) n)
+      (else (sub1 (o- n (sub1 m)))))))
+** addtup -> unfinished
+(define addtup
+  (lambda (tup)
+    (cond
+      ((null? tup) 0)
+      (else ...))))
+** ex
+(define ex
+  (lambda (n m)
+    (cond
+      ((zero? m) 0)
+      (else (o+ n (ex n (sub1 m)))))))
+** tup+ version 1
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+      ((and (null? tup1) (null? tup2))
+       (quote ()))
+      (else
+        (cons (o+ (car tup1) (car tup2))
+	  (tup+
+	    (cdr tup1) (cdr tup2)))))))
+** tup+ version 2
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+      ((and (null? tup1) (null? tup2))
+       (quote ()))
+      ((null? tup1) tup2)
+      ((null? tup2) tup1)
+      (else
+        (cons (o+ (car tup1) (car tup2))
+	  (tup+
+	    (cdr tup1) (cdr tup2)))))))
+** tup+ version 3 -> simplified
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+      ((null? tup1) tup2)
+      ((null? tup2) tup1)
+      (else
+        (cons (o+ (car tup1) (car tup2))
+	  (tup+
+	    (cdr tup1) (cdr tup2)))))))
+** >  -> version 1 
+(define >
+  (lambda (n m)
+    (cond
+      ((zero? m) #t)
+      ((zero? n) #f)
+      (else (> (sub1 n) (sub1 m))))))
+** >  -> version 2
+(define >
+  (lambda (n m)
+    (cond
+      ((zero? n) #f)
+      ((zero? m) #t)
+      (else (> (sub1 n) (sub1 m))))))
+** <
+(define <
+  (lambda (n m)
+    (cond
+      ((zero? m) #f)
+      ((zero? n) #t)
+      (else (< (sub1 n) (sub1 m))))))
+** =
+(define =
+  (lambda (n m)
+    (cond
+      ((zero? m) (zero? n))
+      ((zero? n) #f)
+      (else (= (sub1 n) (sub1 m))))))
+** =  -> using < and >
+(define =
+  (lambda (n m)
+    (cond
+      ((> n m) #f)
+      ((< n m) #f)
+      (else #t))))
+** expt
+(define expt
+  (lambda (n m)
+    (cond
+      ((zero? m) 1)
+      (else (ex n (expt n (sub1 m)))))))
+** ???
+(define ???
+  (lambda (n m)
+    (cond
+      ((< n m) 0)
+      (else (add1 (??? (o- n m) m))))))
+** quotient
+(define quotient
+  (lambda (n m)
+    (cond
+      ((< n m) 0)
+      (else (add1 (quotient (o- n m) m))))))
+** length
+(define length
+  (lambda (lat)
+    (cond
+      ((null? lat) 0)
+      (else (add1 (length (cdr lat)))))))
+** pick
+(define pick
+  (lambda (n lat)
+    (cond
+      ((zero? (sub1 n)) (car lat))
+      (else (pick (sub1 n) (cdr lat))))))
+** rempick
+(define rempick
+  (lambda (n lat)
+    (cond
+      ((zero? (sub1 n)) (cdr lat))
+      (else (cons (car lat)
+               (rempick (sub1 n)
+	          (cdr lat)))))))
+** no-nums
+(define no-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cond
+              ((number? (car lat))
+	       (no-nums (cdr lat)))
+	      (else (cons (car lat)
+	              (no-nums
+		        (cdr lat)))))))))
+** all-nums
+(define all-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((number? (car lat))
+	   (cons (car lat)
+	     (all-nums (cdr lat))))
+	  (else (all-nums (cdr lat))))))))
+** eqan?
+(define eqan?
+  (lambda (a1 a2)
+    (cond
+      ((and (number? a1) (number? a2))
+       (= a1 a2))
+      ((or (number? a1) (number? a2))
+       #f)
+      (else (eq? a1 a2)))))
+
+** occur
+(define occur
+  (lambda (a lat)
+    (cond
+      ((null? lat) 0)
+      (else
+        (cond
+	  ((eq? (car lat) a)
+	   (add1 (occur a (cdr lat))))
+	  (else (occur a (cdr lat))))))))
+** one?
+(define one?
+  (lambda (n)
+    (cond
+      ((zero? n) #f)
+      (else (zero? (sub1 n))))))
+** one? -> smaller version
+(define one?
+  (lambda (n)
+    (cond
+      (else (= n 1)))))
+** one? -> even smaller version
+(define one?
+  (lambda (n)
+    (= n 1)))
+** rempick -> using one?
+(define rempick
+  (lambda (n lat)
+    (cond
+      ((one? n) (cdr lat))
+      (else (cons (car lat)
+              (rempick (sub1 n)
+	        (cdr lat)))))))
+** First Commandment (first revision)
+When recurring on a list of atoms, lat, ask two questions
+about it: (null? lat) and else.
+When recurring on a number, n, ask two questions about
+it: (zero? n) and else.
+** Fourth Commandment (first revision)
+Always change at least one argument while recurring. It
+must be changed to be closer to termination. The changing
+argument must be tested in the termination condition:
+when using cdr, test termination with null? and
+when using sub1, test termination with zero?.
+** Fifth Commandment
+When building a value with o+, always use 0 for the value of the
+terminating line, for adding 0 does not change the value of an
+addition.
+When building a value with ex, always use 1 for the value of the
+terminating line, for multiplying by 1 does not change the value
+of a multiplication.
+When building a value with cons, always consider () for the value
+of the terminating line.
+* ((5. *Oh My Gawd*: Its Full of Stars) 80)
+** rember*
+(define rember*
+  (lambda (a l)
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+      (cond
+        ((eq? (car l) a)
+	 (rember* a (cdr l)))
+	(else (cons (car l)
+	        (rember* a (cdr l))))))
+      (else (cons (rember* a (car l))
+              (rember* a (cdr l)))))))
+** insertR*
+(define insertR*
+  (lambda (new old l)
+    (cond
+      ((null?) (quote ()))
+      ((atom? (car l))
+      (cond
+        ((eq? (car l) old)
+	 (cons old
+	   (cons new
+	     (insertR* new old
+	       (cdr l)))))
+        (else (cons (car l)
+	        (insertR* new old
+		  (cdr l))))))
+       (else (cons (insertR* new old
+                     (car l))
+	       (insertR* new old
+	         (cdr l)))))))
+** occur*
+(define occur*
+  (lambda (a l)
+    (cond
+      ((null? l) 0)
+      ((atom? (car l))
+      (cond
+        ((eq? (car l) a)
+	 (add1 (occur* a (cdr l))))
+	(else (occur* a (cdr l))))
+      (else (o+ (occur* a (car l))
+                (occur* a (cdr l))))))))
+** subst*
+(define subst*
+  (lambda (new old l)
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+      (cond
+        ((eq? (car l) old)
+	 (cons new
+	   (subst* new old (cdr l))))
+	(else (cons (car l)
+	        (subst* new old
+		  (cdr l))))))
+      (else
+        (cons (subst* new old (car l))
+	  (subst* new old (cdr l)))))))
+** insertL*
+(define insertL*
+  (lambda (new old l)
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+       (cond
+         ((eq? (car l) old)
+	  (cons new
+	    (cons old
+	      (insertL* new old
+	        (cdr l)))))
+         (else (cons (car l)
+	        (insertL* new old
+		  (cdr l))))))
+      (else (cons (insertL* new old
+                     (car l))
+	      (insertL* new old
+                (cdr l)))))))
+** member*
+(define member*
+  (lambda (a l)
+    (cond
+      ((null? l) #f)
+      ((atom? (car l))
+       (or (eq? (car l) a)
+        (member* a (cdr l))))
+      (else (or (member* a (car l))
+              (member* a (cdr l)))))))
+** leftmost
+(define leftmost
+  (lambda (l)
+    (cond
+      ((atom? (car l) (car l))
+      (else (leftmost (car l)))))))
+** eqlist? -> first version
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((and (null? l1) (atom? (car l2)))
+      #f)
+      ((null? l1) #f)
+      ((and (atom? (car l1)) (null? l2))
+      #f)
+      ((and (atom? (car l1))
+        (atom? (car l2))
+       (and (eqan? (car l1) (car l2))
+        (eqlist? (cdr l1) (cdr l2))))
+      ((atom? (car l1)) #f)
+      ((null? l2) #f)
+      ((atom? (car l2)) #f)
+      (else
+        (and (eqlist? (car l1) (car l2))
+	  (eqlist? (cdr l1) (cdr l2))))))))
+** eqlist? -> second version
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      ((and (atom? (car l1))
+        (atom? (car l2)))
+       (and (eqan? (car l1) (cdr l2))))
+      ((or (atom? (car l1))
+        (atom? (car l2)))
+       #f)
+      (else
+        (and (eqlist? (car l1) (car l2))
+	  (eqlist? (cdr l1) (cdr l2)))))))
+** equal? -> first version
+(define equal?
+  (lambda (s1 s2)
+    (cond
+      ((and (atom? s1) (atom? s2))
+       (eqan? s1 s2))
+      ((atom? s1) #f)
+      ((atom? s2) #f)
+      (else (eqlist? s1 s2))))) 
+** equal? -> simplified version
+(define equal?
+  (lambda (s1 s2)
+    (cond
+      ((and (atom? s1) (atom? s2))
+       (eqan? s1 s2))
+      ((or (atom? s1) (atom? s2))
+       #f)
+      (else (eqlist? s1 s2)))))
+** eqlist? -> using equal?
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      (else
+        (and (equal? (car l1) (car l2))
+	  (eqlist? (cdr l1) (cdr l2)))))))
+** rember -> S-expression version
+(define rember
+  (lambda (s l)
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+       (cond
+         ((equal? (car l) s) (cdr l))
+	 (else (cons (car l)
+	         (rember s (cdr l))))))
+      (else (cond
+              ((equal? (car l) s) (cdr l))
+	      (else (cons (car l)
+	              (rember s
+		        (cdr l)))))))))
+** rember -> S-expression version simplified
+(define rember
+  (lambda (s l)
+    (cond
+      ((null? l) (quote ()))
+      (else (cond
+              ((equal? (car l) s) (cdr l))
+	      (else (cons (car l)
+	              (rember s
+		        (cdr l)))))))))
+** rember -> S-expression version simplified even more
+(define rember
+  (lambda (s l)
+    (cond
+      ((null? l) (quote ()))
+      ((equal? (car l) s) (cdr l))
+      (else (cons (car l)
+              (rember s (cdr l)))))))
+** First Commandment (final version)
+When recurring on a list of atoms, lat, ask two questions
+about it: (null? lat) and else.
+When recurring on a number, n, ask two questions about
+it: (zero? n) and else.
+When recurring on a list of S-expressions, l, ask three
+questions about it: (null? l), (atom? (car l)), and else.
+** Fourth Commandment (final version)
+Always change at least one argument while recurring.
+When recurring on a list of atoms, lat, use (cdr lat). When
+recurring on a number, n, use (sub1 n). And when recur-
+ring on a list of S-expressions, l, use (car l) and (cdr l) if
+neither (null? l) nor (atom? (car l)) are true.
+
+It must be changed to be closer to termination. The chang-
+ing argument must be tested in the termination condition:
+
+when using cdr, test termination with null? and
+when using sub1, test termination with zero?.
+** Sixth Commandment 
+Simplify only after the function is correct.
+* ((6. Shadows) 96)
+** numbered?
+(define numbered?
+  (lambda (aexp)
+    (cond
+      ((atom? aexp) (number? aexp))
+      ((eq? (car (cdr aexp)) (quote +))
+       (and (numbered? (car aexp))
+         (numbered?
+	   (car (cdr (cdr aexp))))))
+       ((eq? (car (cdr aexp)) (quote x))
+       (and (numbered? (car aexp))
+         (numbered?
+	   (car (cdr (cdr aexp))))))
+      ((eq? (car (cdr aexp)) (quote x))
+      (and (numbered? (car aexp))
+        (numbered?
+	  (car (cdr (cdr aexp)))))))))
+** numbered? in a simpler way
+(define numbered?
+  (lambda (aexp)
+    (cond
+      ((atom? aexp) (number? aexp))
+      (else
+        (and (numbered? (car aexp))
+	  (numbered?
+	    (car (cdr (cdr aexp)))))))))
+	
+** value
+(define value
+  (lambda (nexp)
+    (cond
+      ((atom? nexp) nexp)
+      ((eq? (car (cdr nexp)) (quote +))
+       (o+ (value (car nexp))
+           (value (car (cdr (cdr nexp))))))
+      ((eq? (car (cdr nexp)) (quote x))
+      (x (value (car nexp))
+         (value (car (cdr (cdr nexp))))))
+      (else
+        (expt (value (car nexp))
+	      (value
+                (car (cdr (cdr nexp)))))))))
+** value -> wrong version
+(define value
+  (lambda (nexp)
+    (cond
+      ((atom? nexp) nexp)
+      ((eq? (car nexp) (quote +))
+       (o+ (value (cdr nexp))
+           (value (cdr (cdr nexp)))))
+      ((eq? (car nexp) (quote x))
+       (x (value (cdr nexp))
+          (value (cdr (cdr nexp)))))
+      (else
+       (expt (value (cdr nexp))
+             (value (cdr (cdr nexp))))))))
+** 1st-sub-exp
+(define 1st-sub-exp
+  (lambda (aexp)
+    (cond
+      (else (car (cdr aexp))))))
+** 1st-sub-exp -> one-liner
+(define 1st-sub-exp
+  (lambda (aexp)
+    (car (cdr aexp))))
+** 2nd-sub-exp
+(define 2nd-sub-exp
+  (lambda (aexp)
+    (car (cdr (cdr aexp)))))
+** operator
+(define operator
+  (lambda (aexp)
+    (car aexp)))
+** value...again
+(define value
+  (lambda (nexp)
+    (cond
+      ((atom? nexp) nexp)
+      ((eq? (operator nexp) (quote +))
+       (o+ (value (1st-sub-exp nexp))
+           (value (2nd-sub-exp nexp))))
+      ((eq? (operator nexp) (quote x))
+       (x (value (1st-sub-exp nexp))
+          (value (2nd-sub-exp nexp))))
+      (else
+       (expt (value (1st-sub-exp nexp))
+             (value (2nd-sub-exp nexp)))))))
+** 1st-sub-exp -> upgraded
+(define 1st-sub-exp
+  (lambda (aexp)
+    (car aexp)))
+** operator -> upgraded
+(define operator
+  (lambda (aexp)
+    (car (cdr aexp))))
+** sero?
+(define sero?
+  (lambda (n)
+    (null? n)))
+** edd1
+(define edd1
+  (lambda (n)
+    (cons (quote ()) n)))
+** zub1
+(define zub1
+  (lambda (n)
+    (cdr n)))
+** plus -> reloaded
+(define plus
+  (lambda (n m)
+    (cond
+      ((sero? m) n)
+      (else (edd1 (plus n (zub1 m)))))))
+** lat...again
+(define lat?
+  (lambda (l)
+    (cond
+      ((null? l) #t)
+      ((atom? (car l)) (lat? (cdr l)))
+      (else #f))))
+** Seventh Commandment
+Recur on the subparts that are of the same nature:
+- On the sublists of a list.
+- On the subexpressions of an arithmetic expression.
+** Eighth Commandment
+Use help functions to abstract from representations
+* ((7. Friends and Relations) 110)
+** member?
+(define member?
+  (lambda (a lat)
+    (cond
+      ((null? lat) #f)
+      (else (or (eq? (car lat) a)
+              (member? a (cdr lat)))))))
+** set? -> ugly version
+(define set?
+  (lambda (lat)
+    (cond
+      ((null? lat) #t)
+      (else
+        (cond
+          ((member? (car lat) (cdr lat))
+	   #f)
+	  (else (set? (cdr lat))))))))
+
+** set? -> pretty version
+(define set?
+  (lambda (lat)
+    (cond
+      ((null? lat) #t)
+      ((member? (car lat) (cdr lat)) #f)
+      (else (set? (cdr lat))))))
+** makeset -> using member?
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((member? (car lat) (cdr lat))
+       (makeset (cdr lat)))
+       (else (cons (car lat)
+               (makeset (cdr lat)))))))
+** makeset -> using multirember
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cons (car lat)
+              (makeset
+	        (multirember (car lat)
+		  (cdr lat))))))))
+** multirember
+(define multirember
+  (lambda (a lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+        (cond
+	  ((eq? (car lat) a)
+	   (multirember a (cdr lat)))
+	   (else (cons (car lat)
+	           (multirember a
+		     (cdr lat)))))))))
+** subset? -> long version
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      (else (cond
+              ((member? (car set1) set2)
+	       (subset? (cdr set1) set2))
+	       (else #f))))))
+** subset? -> shorter version
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      ((member? (car set1) set2)
+      (subset? (cdr set1) set2))
+     (else #f))))
+** subset? -> with (and ...)
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      (else
+        (and (member? (car set1) set2)
+	  (subset? (cdr set1) set2))))))
+** eqset? -> two cond lines
+(define eqset?
+  (lambda (set1 set2)
+    (cond
+      ((subset? set1 set2)
+       (subset? set2 set1))
+       (else #f))))
+** eqset? -> one cond-line
+(define eqset? 
+  (lambda (set1 set2)
+    (cond
+      (else (and (subset? set1 set2)
+              (subset? set2 set1))))))
+** eqset? -> one-liner
+(define eqset?
+  (lambda (set1 set2)
+    (and (subset? set1 set2)
+      (subset? set2 set1))))
+** intersect? -> long version
+(define intersect?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #f)
+      (else
+        (cond
+	  ((member? (car set1) set2) #t)
+	  (else (intersect?
+	    (cdr set1) set2)))))))
+** intersect? -> shorter version
+(define intersect?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #f)
+      ((member? (car set1) set2) #t)
+      (else (intersect? (cdr set1) set2)))))
+** intersect? -> with (or...)
+(define intersect?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #f)
+      (else (or (member? (car set1) set2)
+              (intersect?
+	        (cdr set1) set2))))))
+** intersect  -> the short version
+(define intersect
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) (quote ()))
+      ((member? (car set1) set2)
+      (cons (car set1)
+        (intersect (cdr set1) set2)))
+	(else (intersect (cdr set1) set2)))))
+** union
+(define union
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) set2)
+      ((member? (car set1) set2)
+      (union (cdr set1) set2))
+      (else (cons (car set1)
+               (union (cdr set1) set2))))))
+** xxx 
+(define xxx
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) (quote ()))
+      ((member? (car set1) set2)
+      (xxx (cdr set1) set2))
+      (else (cons (car set1)
+              (xxx (cdr set1) set2))))))
+** intersectall
+(define intersectall
+  (lambda (l-set)
+    (cond
+      ((null? (cdr l-set)) (car l-set))
+      (else (intersect (car l-set)
+              (intersectall (cdr l-set)))))))
+** a-pair?
+(define a-pair?
+  (lambda (x)
+    (cond
+      ((atom? x) #f)
+      ((null? x) #f)
+      ((null? (cdr x)) #f)
+      ((null? (cdr (cdr x))) #t)
+      (else #f))))
+** first
+(define first
+  (lambda (p)
+    (cond
+      (else (car p)))))
+** second
+(define second
+  (lambda (p)
+    (cond
+      (else (car (cdr p))))))
+** build
+(define build
+  (lambda (s1 s2)
+    (cond
+      (else (cons s1
+              (cons s2 (quote ())))))))
+** third
+(define third
+  (lambda (l)
+    (car (cdr (cdr l)))))
+** fun?
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
+** revrel -> representation 1
+(define revrel
+  (lambda (rel)
+    (cond
+      ((null? rel) (quote ()))
+      (else (cons (build
+                    (second (car rel))
+		    (first (car rel)))
+	      (revrel (cdr rel)))))))
+** revrel -> representation 2
+(define revrel
+  (lambda (rel)
+    (cond
+      ((null? rel) (quote ()))
+      (else (cons (cons
+                    (car (cdr (car rel)))
+		    (cons (car (car rel))
+		      (quote ())))
+	      (revrel (cdr rel)))))))
+** revpair
+(define revpair
+  (lambda (pair)
+    (build (second pair) (first pair))))
+** revrel -> representation 3
+(define revrel
+  (lambda (rel)
+    (cond
+      ((null? rel) (quote ()))
+      (else (cons (revpair (car rel))
+              (revrel (cdr rel)))))))
+** fullfun?
+(define fullfun?
+  (lambda (fun)
+    (set? (seconds fun))))
+** one-to-one?
+(define one-to-one?
+  (lambda (fun)
+    (fun? (revrel fun))))
+** cookies
+(define cookies
+  (lambda ()
+    (bake
+      (quote (350 degrees))
+      (quote (12 minutes))
+      (mix
+        (quote (walnuts 1 cup))
+	(quote (chocolate-chips 16 ounces))
+	(mix
+	  (mix
+	    (quote (flour 2 cups))
+	    (quote (oatmeal 2 cups))
+	    (quote (salt .5 teaspoon))
+	    (quote (baking-powder 1 teaspoon))
+	    (quote (baking-soda 1 teaspoon)))
+	  (mix
+	    (quote (eggs 2 large))
+	    (quote (vanilla 1 teaspoon))
+	    (cream
+	      (quote (butter 1 cup))
+	      (quote (sugar 2 cups)))))))))
+	      
+* ((8. Lambda the Ultimate) 124)
+** rember-f
+(define rember-f
+  (lambda (test? a l)
+    (cond
+      ((null? l) (quote ()))
+      (else (cond
+              ((test? (car l) a) (cdr l))
+	      (else (cons (car l)
+	              (rember-f test? a
+		        (cdr l)))))))))
+** rember-f -> the short version
+(define rember-f
+  (lambda (test? a l)
+    (cond
+      ((null? l) (quote ()))
+      ((test? (car l) a) (cdr l))
+      (else (cons (car l)
+              (rember-f test? a
+	        (cdr l)))))))
+** eq?-c
+(define eq?-c
+  (lambda (a)
+    (lambda (x)
+      (eq? x a))))
+** rember-f -> incomplete
+(define rember-f
+  (lambda (test?)
+    (lambda (a l)
+      (cond
+        ((null? l) (quote ()))
+	((test? (car l) a) (cdr l))
+	(else (cons (car l) ...))))))
+** rember-eq?
+(define rember-eq? (rember-f test?))
+** rember-f
+(define rember-f
+  (lambda (test?)
+    (lambda (a l)
+      (cond
+        ((null? l) (quote ()))
+	((test? (car l) a) (cdr l))
+	(else (cons (car l)
+	        ((rember-f test?) a
+		 (cdr l))))))))
+** insertL-f
+(define insertL-f
+  (lambda (test?)
+    (lambda (new old l)
+      (cond
+        ((null? l) (quote ()))
+	((test? (car l) old)
+	 (cons new (cons old (cdr l))))
+	(else (cons (car l)
+	        ((insertR-f test?) new old
+		 (cdr l))))))))
+
+(...to be continued...)
+(...to be continued...)
+* ((9. ... and Again, and Again, and Again, ...) 148)
+** looking
+(define looking
+  (lambda (a lat)
+    (keep-looking a (pick 1 lat) lat)))
+** keep-looking
+(define keep-looking
+  (lambda (a sorn lat)
+    (cond
+      ((number? sorn)
+       (keep-looking a (pick sorn lat) lat))
+      (else (eq? sorn a)))))
+** eternity
+(define eternity
+  (lambda (x)
+    (eternity x)))
+** shift
+(define shift
+  (lambda (pair)
+    (build (first (first pair))
+      (build (second (first pair))
+      (second pair)))))
+** align
+(define align
+  (lambda (pora)
+    (cond
+      ((atom? pora) pora)
+      ((a-pair? (first pora))
+       (align (shift pora)))
+      (else (build (first pora)
+              (align (second pora)))))))
+(...to be continued...)
+* ((10. What is the Value of All of This?) 174)
+* (Intermission 192)
+* (Index 194)
+* (General Functions)
+** atom?
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
+** add1
+(define add1
+  (lambda (n)
+  (+ n 1)))
+** sub1
+(define sub1
+  (lambda (n)
+    (- n 1)))
+* (The Ten Commandments)
+** The First Commandment
+When recurring on a list of atoms, lat, ask
+two questions about it: (null? lat) and else.
+When recurring on a number, n, ask two
+questions about it: (zero? n) and else.
+When recurring on a list of S-expressions, l,
+ask three questions about it: (null? l), (atom?
+(car l)), and else. 
+** The Second Commandment
+Use cons to build lists. 
+** 3 
+** 4
+** 5
+** 6
+** 7
+** 8
+** 9
+** 10
+* (The Five Rules)
+** The Law of Car
+The primitive car is defined only for non-empty lists.
+** The Law of Cdr
+The primitive cdr is defined only for non-empty lists.
+The cdr of any non-empty list is always another list.
+** The Law of Cons
+The primitive cons takes two arguments.
+The second argument to cons must be a list.
+The result is a list.
+** The Law of Null?
+The primitive null? is defined only for lists.
+** The Law of Eq?
+The primitive eq? takes two arguments.
+Each must be a non-numeric atom.
+* (Templates)
+* (Questions)
+
+Is this a set? (apple peaches apple plum) -> No
+
+True or False: (set? lat)
+where
+  lat is (apples peaches pairs plums      -> #t
+
+* (Dependencies)
+
+atom?    -> ()
+lat?     -> (atom?)
+member?  -> ()
+rember   -> ()
+firsts   -> ()
+insertR  -> ()
+insertL  -> ()
+subst    -> ()
+subst2   -> ()
+multirember -> ()
+multiinsertR -> ()
+multiinsertL -> ()
+multisubst -> ()
+add1      -> ()
+sub1      -> ()
+(Numbers Games Functions) -> (add1 sub1)
+
+
+
+* (Functions in Alphabetical Order)
+(*application 186)
+(*cond 185)
+(*const 183)
+(*identifier 183)
+(*lambda 184)
+(*quote 183)
+(o+ 60 108)
+(o- 61)
+(ox 65)
+(odiv 75)
+(expt 74)
+(< 73)
+(= 74)
+(> 72 73)
+(??? 74)
+(1st-sub-exp 105 106)
+(2nd-sub-exp 106)
+
+(A 156)
+(a-friend? 138)
+(a-pair? 118)
+(add1 59)
+(addtup 64)
+(align 152)
+(all-nums 78)
+(answer-of 185)
+(apply 187)
+(apply-closure 189)
+(apply-primitive 188)
+(arguments-of 187)
+(atom? 10)
+(atom-to-action 181)
+(atom-to-function 134)
+
+(body-of 184)
+(build 119)
+
+(C 155)
+(cond-lines-of 185)
+(cookies 123)
+
+(difference 117)
+
+(edd1 108)
+(else? 185)
+(eq?-c 127)
+(eq?-salad 128)
+(eq?-tuna 136)
+(eqan? 78)
+(eqlist? 91 92 94)
+(eqset? 114 115)
+(equal? 93)
+(eternity 151)
+(evcon 185)
+(even? 144)
+(evens-only* 144)
+(evens-only*&co 145)
+(evlis 186)
+(expression-to-action 181)
+(extend-table 176)
+
+(first 119)
+(firsts 43 44 46)
+(formals-of 184)
+(fullfun? 122)
+(fun? 120)
+(function-of 187)
+
+(initial-table 183)
+(insert-g 132)
+(insertL 51 132)
+(insertL* 86)
+(insertL-f 130)
+(insertR 48-50 132)
+(insertR* 82)
+(insertR-f 130)
+(intersect 116)
+(intersect? 115)
+(intersectall 117)
+
+(keep-looking 150)
+
+(last-friend 140)
+(last-try 158)
+(lat? 16 19 109)
+(latest-friend 139)
+(leftmost 88)
+(length 76 160)
+(length* 153)
+(list-to-action 182)
+(looking 149)
+(lookup-in-entry 176)
+(lookup-in-entry-help 176)
+(lookup-in-table 177)
+
+(makeset 112)
+(meaning 182)
+(member* 87)
+(member? 22)
+(multiinsertL 56 57 141)
+(multiinsertLR 141)
+(multiinsertLR&co 142 143)
+(multiinsertR 56 141)
+(multirember 53 135)
+(multirember&co 137)
+(multirember-eq? 136)
+(multirember-f 135)
+(multiremberT 137)
+(multisubst 57)
+
+(new-entry 175)
+(new-friend 139)
+(no-nums 77)
+(non-primitive? 187)
+(numbered? 99-101)
+
+(occur 78)
+(occur* 85)
+(one-to-one? 122)
+(one? 79)
+(operator 106)
+
+(pick 76)
+(primitive? 187)
+
+(question-of? 185)
+
+(rember 34 37 41 94 95)
+(rember* 81)
+(rember-eq? 129)
+(rember-f 126 128 129)
+(rempick 77 79)
+(revpair 121)
+(revrel 120 121)
+
+(second 119)
+(seconds 122)
+(seqL 131)
+(seqR 131)
+(seqrem 133)
+(seqS 133)
+(sero? 108)
+(set? 111)
+(shift 152)
+(shuffle 154)
+(sub1 59)
+(subset? 113 114)
+(subst 51 133)
+(subst* 85)
+(subst2 52)
+
+(table-of 184)
+(text-of 183)
+(the-last-friend 146)
+(third 119)
+(tup+ 69 71)
+
+(union 116)
+
+(value 102-104 106 134 135 182)
+
+(weight* 154)
+(will-stop? 157)
+
+(xxx 117)
+
+(Y 172)
+(yyy 133)
+
+(zub1 108)
+* (Parts of functions)
+** from member? 23
+(or (eq? (car lat) a)
+    (member? a (cdr lat)))
+    
+* (Usages)
+; adapted from Peteris Krumins
+;
+; Examples of member? succeeding
+;
+(member? 'meat '(mashed potatoes and meat gravy))
+(member? 'meat '(potatoes and meat gravy))
+(member? 'meat '(and meat gravy))
+(member? 'meat '(meat gravy))
+
+; Examples of member? failing
+(member? 'liver '(bagels and lox))
+(member? 'liver '())
+
+; Examples of or:
+;
+(or (null? '()) (atom? '(d e f g)))   ; true
+(or (null? '(a b c)) (null? '()))     ; true
+(or (null? '(a b c)) (null? '(atom))) ; false
+

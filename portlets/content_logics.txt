@@ -1,0 +1,83 @@
+Introduction
+
+In this book, I propose to embark on an exploration of one of the most difficult yet fundamental concepts of the natural and social sciences, the concept of "structure". This will not be an easy voyage-- many a tall ship has been wrecked in the course of such an enterprise. Nonetheless, the call of the open sea can be still heard and the time seems ripe for another daring undertaking. Let us then accept the challenge and investigate this much used and abused notion, which as Neil Smelser pointed out some time ago (1967) constitutes the chief conceptual focus of sociology and of numerous cognate fields as well. 
+
+Part I: Metatheoretical considerations
+(start 	10:50 am. 5/13/2010)
+(finish 11:00 am. 5/13/2010)
+(pp. 9)
+
+from pp. 73
+
+Part I focuses on the recent developments in many scientific fields
+(physics, biochemistry, population ecology, neuroscience) where there
+has been a dramatic shift away from the dogmatic reductionist epistemic
+strategy toward a dynamic and emergentist conceptualization of various
+kinds of phenomena along new-- constructionist, heterarchical, and hierarchical-- lines of thought. This informal introduction to current scientific issues and debates, prior to any consideration of the already available sociological approaches, will help us, I believe, to
+see the problem of social structure in a new light.
+
+There are four chapters in this part and they address the following
+issues: the five basic epistemic strategies of reductionism, constructionism, heterarchy, hierarchy, and transcendence/holism, which
+provide a conceptual map within which subsequent discourses can be located (Chapter 1); the case against reductionism in favor of emergence (Chapter 2); and the empirical (Chapter 3) and formal (Chapter 4) demarcation between the two higher forms of emergence, heterarchy and hierarchy.
+
+As I stated in the introduction, the going here, especially in Chapter 2, may be unfamiliar for many readers, as it was for me when I started this research program. Because of our professional socialization most of us have built an aversion to "heavy" science, or have grown unaccustomed to its latest vocabularies and models. Yet I have come to believe that the effort of investigating some of these models is very worthwhile. I would recommend to the wary colleague to first read this part quickly, and then proceed to the
+better known material of later chapters with a plan to return to this section for a second, more elaborate reading.
+
+Home: The Logics of Social Structure
+
+Part II: Compositionist logics
+Start 11:13 am
+End   11:19 am
+(Full Concentration)
+
+Starting with this part we turn our attention to the issue of social structure, and spell out the constructionist/compositionist logics operative in the emergence of an ascending order of social structures out of individual actions and ensuing systems of interaction. Given the discontinuities involved and the emergent paradoxical effects, structural phenomena appear beyond the initial realm of actions, interactions, and direct interdependencies. 
+
+In Chapter 5 I present the case of methodological individualism, the archetypal version of reductionism in the social sciences and point out its shortcomings. Chapter 6 introduces the constructionist views regarding the emergence of social structures, exemplified in exchange and network models and the more ambitious game-theoretical logic. Part II concludes with Chapter 7's investigation of complex systems of interaction, especially looking at further extensions and elaborations of game-theoretical and other models to higher levels of structures, that is, to complex, entangled systems. Overall, these three chapters present the measure of possibilities as well as the limits of the constructionist strategy when complexity increases.
+
+
+Home: The Logics of Social Structure
+
+Part III: Logics of hierarchy
+pp.151
+(start 11:29 am)
+(end   11:38 am)
+
+In this part we focus on hierarchical logics, the symmetrical antipode of constructionism. Here the emergence of structure is seen not as a standard byproduct of properly aggregated individual actions, but as a complex derivative of other significant-- quasi-local, quasi-global, and/or global-- higher-level processes, involving different mechanisms of structuration, phase-separation, and nonlinear coupling of lower structures. Furthermore, individual action is now considered to be parameterized by the structural characteristics of higher levels, which are treated as autonomous and as exerting downward causation over such action.
+
+Chapter 8 is intended as the opposite of Chapter 5: The focus is on "methodological holism" as opposed to the "methodological individualism" we discussed there. Here we present an analytical summation of various versions of functionalism, the mark of all kinds of holism, and proceed to appraise holism's prospects in view of radical changes taking place in the fields of physical chemistry, molecular biology, evolutionary theory, and ecosystems modeling-- fields out of which the original functionalist notions were derived. On the basis of these recent developments we posit a postfunctional mode of analysis as the only available path for former functionalists.
+
+In Chapter 9 we explore a number of incipient hierarchical conceptions of social structure (Bunge, Hernes), and then turn our attention to the "received view" of Marxist theory, which appears as an exemplary instance of a dynamic hierarchical logic (with its emphasis on subsumption and on the logic of capital). It may be helpful at this point to refer to the theses on hierarchy presented in Chapter 4.
+
+Home: The Logics of Social Structure
+
+Part IV: Heterarchical logics
+page 209
+start: 11:42 am
+finish: 11:50 am
+The following two chapters focus on the Logic of Heterarchy, the basis of my own research program. Admittedly, this is the most complex type and is located-- somewhat peculiarly-- in the gray area between the constructionist and hierarchical logics. Here I build on Hofstadter's (1979) provocative initial analyses of "tangled systems" providing an elaborated transcription of the heterarchical talk into sociological talk. The emphasis is on the analytical characteristics of the heterarchical model of social structure, as described in the theses discussed in Chapter 4; the phenomenological description of social structures along the lines of this model follows in Part V. 
+
+Chapter 10 presents and appraises various theories of structuration, which have made an effort to go beyond the simpler constructionist models by introducing a certain dialectic between agency and structure; I also offer here my own positive heuristic on how a successful heterarchical research program can be fully developed.
+
+In Chapter 11, which incorporates a considerable degree of speculation, I discuss the exciting developments in the area of neural networks as a possible, advanced model of social structure; this may seem to be an interruption of the sociological argument proper, but there is an important insight to be gained as we survey the parallel distributed connections between the neuronal/mental and the individual/social levels. By combining the discussion in Chapters 3 and 4 with that of Chapters 10 and 11, we can better understand the interlevel linkages between the numerous social structures to be described in Part V. 
+
+Home: The Logics of Social Structure
+
+Part V: The phenomenology of social structures
+start: 11:53 AM
+finish: 12:01 AM 
+pp. 269
+
+In this final part we address issues related to the "phenomenology of structures" using our previous knowledge of heterarchical organization. We begin with the description of a matrix consisting, in one dimension, of structural types and, in the other, of structural levels; on the basis of this matrix we investigate intralevel as well as interlevel relations, especially between adjacent levels. Essentially these relations are entangled, contrary to the hierarchical view. Figure V.1 illustrates phenomenological levels and structures.
+
+In Chapter 12 we discuss various modalities of interactions implicated in the process of structural "emergence". We then review the different types of "systems of interaction," the structural micrologics operating on them, and the ensuing structural results. 
+
+With Chapter 13 we begin concrete talk about upward heterarchical structuration. We distinguish three levels of social structure-- groupings, fields, and totalities-- and proceed to analyze the social structures situated in the first two levels.
+
+Chapter 14 deals with the third level, that is, with the several examples of structural totalities("class structures", "the world system"), whose modes of 
+emergence we investigate in some detail in heterarchical terms.
+
+Home: The Logics of Social Structure
+
+
+
+

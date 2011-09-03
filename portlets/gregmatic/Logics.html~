@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+   <head>
+      <title>The Logics of Social Structure</title>
+      <link rel="stylesheet" type="text/css" href="common.css">
+      <script type="text/javascript"
+               src="jquery-1.2.1.js"></script>
+          <script type="text/javascript">
+      $(function(){
+        $('li:has(ul)')
+          .click(function(event){
+            if (this == event.target) {
+              $(this).children().toggle();
+              $(this).css('list-style-image',
+                ($(this).children().is(':hidden')) ?
+                  'url(plus.gif)' : 'url(minus.gif)');
+            }
+            return false;
+          })
+          .css('cursor','pointer')
+          .click();
+        $('li:not(:has(ul))').css({
+          cursor: 'default',
+          'list-style-image':'none'
+        });
+      });
+    </script>
+    <style>
+      fieldset { width: 480px }
+    </style>
+   </head>
+   
+   <body>
+      <fieldset>
+      <legend>The Logics of Social Structure</legend>
+         <ul>
+            <li>Micrologics
+               <ul>
+                  <li>The logic of organizational hierarchies
+                     <p>The basic case of "purposive structures"...</p>
+                  </li>
+                  <li>The logic of flows and impaired flows</li>
+                  <li>The logic of self-selection and segregation</li>
+                  <li>The logic of "constraining identities"</li>
+                  <li>The logic of comparative advantage and comparative exclusion</li>
+                  <li>The logic of oligarchy and oligopoly</li>
+                  <li>The logic of gaming</li>
+                  <li>The logic of federalism</li>
+                  <li>The logic of social frustration</li>
+                  <li>The logic of market (price) reversals</li>
+                  <li>Tipping rules (thresholds)</li>
+                  <li>Sorting rules</li>
+                  <li>Matching rules</li>
+                  <li>Traveling (graph traversing)</li>
+                  <li>The logic of interfacing</li>
+                  <li>The logic of voting</li>
+               </ul>
+             </li>
+            <li>Mesologics
+               <ul>
+                  <li>The logic of fluctuation</li>
+                  <li>The logic of nucleation (catalysis, autocatalysis)</li>
+                  <li>The logic of differentiation</li>
+                  <li>The logic of allometry</li>
+                  <li>The logic of allometric speciation</li>
+                  <li>Islands and the logic of fission</li>
+                  <li>The logic of percolation</li>
+                  <li>The logic of Conway games of life (cellular automata)</li>
+                  <li>The logic of fractals</li>
+                  <li>The logic of mixing and merging</li>
+                  <li>The logic of waves</li>
+                  <li>The logic of branching/uncoupling</li>
+                  <li>The logic of cascades</li>
+                  <li>Packing rules</li>
+                  <li>Surface-to-volume ratios</li>
+                  <li>Rules of unpacking (partitioning)</li>
+                  <li>The logic of informational packing</li>
+                  <li>The logic of parsing</li>
+                 </ul>
+              </li>
+            <li>Macrologics
+               <ul>
+                  <li>The logic of swamping</li>
+                  <li>Rules of pruning</li>
+                  <li>Eco-logics: the entropic form</li>
+                  <li>Eco-logics: the heterarchical form</li>
+                  <li>Totalizing logics</li>
+                  <li>The logic of metaptations</li>
+               </ul>
+            </li>
+         </ul>
+      </fieldset>
+   </body>
+</html>
+

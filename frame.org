@@ -1,0 +1,47 @@
+This document describes the "concept management
+system" that I have been thinking about for the
+last couple of years. It now seems time to do
+something concrete, especially after speaking
+with Dan from Loffles today.
+
+What is a "Concept Management System"?
+--------------------------------------
+We will find out. The simple answer is that it
+is a system for managing concepts. Now who
+would want to manage concepts. My hypothesis
+is that a lot of people need to manage concepts.
+At least one person (me) would like to figure
+out how to have something like this.
+
+"A toolkit for thinkers"
+
+What is a Concept? (...from wiki...)
+------------------
+abstract idea
+unit of meaning
+unit of knowledge
+
+In the context of my project, a concept has a 
+name and a definition. These will be integrated
+into a portlet.
+
+How can Concepts link together?
+-------------------------------
+
+What do I need to do to get this up and running?
+------------------------------------------------
+Get a url -> dean.io, 
+
+Work out the mechanics of how to create an interactive
+portlet online. 
+
+Two parts to get started: 
+  figure out the updating mechanism -> by end of the week
+  get the thing online              -> by the weekend
+
+HTML Frame
+----------
+Divs/Sections -> header,body,footer
+
+jQuery portlet format
+---------------------
