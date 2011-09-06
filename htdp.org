@@ -1,0 +1,40 @@
+Notes from "How to Design Programs"
+
+* Kinds of Recursion
+** Structural Recursion
+*** Figure 28: Computing the value of an inventory
+(Sort 170 175)
+(Polygon-Draw 179)
+
+(define-struct ir (name price))
+
+(define (sum an-inv)
+  (cond
+    [(empty? an-inv) 0]
+    [else (+ (ir-price (first an-inv)) (sum (rest an-inv)))]))
+
+*** 153 -> defining the natural numbers
+*** Figure 31: Factorial and friends (164)
+*** 168 Important Quote
+"Formulate auxiliary function definitions
+for every dependency between quantities in
+the problem statement."
+*** 170 Recursive auxiliary functions
+*** 22-26 Auxiliary functions
+*** 217 Mutually referential definitions
+*** 268 Sorting Using Local
+*** 276-280 Sort -> analyze scope
+*** 313 -> Functional/Higher Order Functions
+*** 319 -> Sort (reduce version)
+*** 340 -> Taylor series
+*** 347/350 -> d/dx definition
+** Generative Recursion
+*** (Generative Recursion 357-379)
+*** (Quicksort 362 365)
+*** 363 Tabular Illustration of Quicksort
+*** 365 Quicksort algorithm
+*** 374 26.2 Structural vs. Generative Recursion
+*** 445 Problem with Generative Recursion
+*** 457 Solution -> Accumulator-Style Functions
+*** 642-647 Sorting with mutable structures (qsort)
+*** 677-681 Explain/Summarize the "Epilogue"

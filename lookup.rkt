@@ -1,0 +1,55 @@
+#lang racket
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
+
+(define yo
+  '((app ent bev)
+    (pat boe vin)))
+
+(define build
+  (lambda (s1 s2)
+    (cons s1 (cons s2 '()))))
+
+(define new-entry build)
+
+(define oy
+  (build '(app ent bev)
+         '(pat boe vin)))
+
+(define first
+  (lambda (p)
+    (car p)))
+
+(define second (lambda (p) (car (cdr p))))
+
+(define third
+  (lambda (l)
+    (car (cdr (cdr l)))))
+
+; (second (third '((1 2) (3 4) (5 6))))
+
+(define lookup-in-entry
+  (lambda (name entry entry-f)
+    (lookup-in-entry-help
+     name
+     (first entry)
+     (second entry)
+     entry-f)))
+
+(define lookup-in-entry-help
+  (lambda (name names values entry-f)
+    (cond
+      ((null? names) (entry-f name))
+      ((eq? (car names) name) (car values))
+      (else
+       (lookup-in-entry-help
+        name
+        (cdr names)
+        (cdr values)
+        entry-f)))))
+
+; (lookup-in-entry
+;  'ent
+;  yo
+;  (lambda (n) '()))

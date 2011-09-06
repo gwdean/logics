@@ -1,0 +1,3051 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>schemer</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2011-09-03 19:46:39 EDT"/>
+<meta name="author" content="ubuntu"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">schemer</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 (Foreword ix) </a></li>
+<li><a href="#sec-2">2 (Preface xi) </a></li>
+<li><a href="#sec-3">3 ((1. Toys) 2) </a>
+<ul>
+<li><a href="#sec-3.1">3.1 Law of Car </a></li>
+<li><a href="#sec-3.2">3.2 Law of Cdr </a></li>
+<li><a href="#sec-3.3">3.3 Law of Cons </a></li>
+<li><a href="#sec-3.4">3.4 Law of Null? </a></li>
+<li><a href="#sec-3.5">3.5 Law of Eq? </a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 ((2. Do It, Do It Again, and Again, and Again &hellip;) 14) </a>
+<ul>
+<li><a href="#sec-4.1">4.1 lat? </a></li>
+<li><a href="#sec-4.2">4.2 member? </a></li>
+<li><a href="#sec-4.3">4.3 First Commandment (preliminary version) </a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 ((3. Cons the Magnificent) 32) </a>
+<ul>
+<li><a href="#sec-5.1">5.1 rember -&gt; first version </a></li>
+<li><a href="#sec-5.2">5.2 rember -&gt; using cons </a></li>
+<li><a href="#sec-5.3">5.3 rember -&gt; simplified version </a></li>
+<li><a href="#sec-5.4">5.4 firsts -&gt; partial version </a></li>
+<li><a href="#sec-5.5">5.5 firsts -&gt; another partial version </a></li>
+<li><a href="#sec-5.6">5.6 insertR -&gt; version 1 </a></li>
+<li><a href="#sec-5.7">5.7 insertR -&gt; version 2 </a></li>
+<li><a href="#sec-5.8">5.8 insertR -&gt; version 3 </a></li>
+<li><a href="#sec-5.9">5.9 insertL </a></li>
+<li><a href="#sec-5.10">5.10 subst </a></li>
+<li><a href="#sec-5.11">5.11 subst2 </a></li>
+<li><a href="#sec-5.12">5.12 multirember </a></li>
+<li><a href="#sec-5.13">5.13 multiinsertR </a></li>
+<li><a href="#sec-5.14">5.14 multiinsertL -&gt; version 1 </a></li>
+<li><a href="#sec-5.15">5.15 multiinsertL -&gt; version 2 </a></li>
+<li><a href="#sec-5.16">5.16 multisubst </a></li>
+<li><a href="#sec-5.17">5.17 The Second Commandment </a></li>
+<li><a href="#sec-5.18">5.18 The Third Commandment </a></li>
+<li><a href="#sec-5.19">5.19 The Fourth Commandment (preliminary) </a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 ((4. Numbers Games) 58) </a>
+<ul>
+<li><a href="#sec-6.1">6.1 o+ </a></li>
+<li><a href="#sec-6.2">6.2 o- </a></li>
+<li><a href="#sec-6.3">6.3 addtup -&gt; unfinished </a></li>
+<li><a href="#sec-6.4">6.4 ex </a></li>
+<li><a href="#sec-6.5">6.5 tup+ version 1 </a></li>
+<li><a href="#sec-6.6">6.6 tup+ version 2 </a></li>
+<li><a href="#sec-6.7">6.7 tup+ version 3 -&gt; simplified </a></li>
+<li><a href="#sec-6.8">6.8 &gt;  -&gt; version 1 </a></li>
+<li><a href="#sec-6.9">6.9 &gt;  -&gt; version 2 </a></li>
+<li><a href="#sec-6.10">6.10 &lt; </a></li>
+<li><a href="#sec-6.11">6.11 = </a></li>
+<li><a href="#sec-6.12">6.12 =  -&gt; using &lt; and &gt; </a></li>
+<li><a href="#sec-6.13">6.13 expt </a></li>
+<li><a href="#sec-6.14">6.14 ??? </a></li>
+<li><a href="#sec-6.15">6.15 quotient </a></li>
+<li><a href="#sec-6.16">6.16 length </a></li>
+<li><a href="#sec-6.17">6.17 pick </a></li>
+<li><a href="#sec-6.18">6.18 rempick </a></li>
+<li><a href="#sec-6.19">6.19 no-nums </a></li>
+<li><a href="#sec-6.20">6.20 all-nums </a></li>
+<li><a href="#sec-6.21">6.21 eqan? </a></li>
+<li><a href="#sec-6.22">6.22 occur </a></li>
+<li><a href="#sec-6.23">6.23 one? </a></li>
+<li><a href="#sec-6.24">6.24 one? -&gt; smaller version </a></li>
+<li><a href="#sec-6.25">6.25 one? -&gt; even smaller version </a></li>
+<li><a href="#sec-6.26">6.26 rempick -&gt; using one? </a></li>
+<li><a href="#sec-6.27">6.27 First Commandment (first revision) </a></li>
+<li><a href="#sec-6.28">6.28 Fourth Commandment (first revision) </a></li>
+<li><a href="#sec-6.29">6.29 Fifth Commandment </a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 ((5. <b>Oh My Gawd</b>: Its Full of Stars) 80) </a>
+<ul>
+<li><a href="#sec-7.1">7.1 rember* </a></li>
+<li><a href="#sec-7.2">7.2 insertR* </a></li>
+<li><a href="#sec-7.3">7.3 occur* </a></li>
+<li><a href="#sec-7.4">7.4 subst* </a></li>
+<li><a href="#sec-7.5">7.5 insertL* </a></li>
+<li><a href="#sec-7.6">7.6 member* </a></li>
+<li><a href="#sec-7.7">7.7 leftmost </a></li>
+<li><a href="#sec-7.8">7.8 eqlist? -&gt; first version </a></li>
+<li><a href="#sec-7.9">7.9 eqlist? -&gt; second version </a></li>
+<li><a href="#sec-7.10">7.10 equal? -&gt; first version </a></li>
+<li><a href="#sec-7.11">7.11 equal? -&gt; simplified version </a></li>
+<li><a href="#sec-7.12">7.12 eqlist? -&gt; using equal? </a></li>
+<li><a href="#sec-7.13">7.13 rember -&gt; S-expression version </a></li>
+<li><a href="#sec-7.14">7.14 rember -&gt; S-expression version simplified </a></li>
+<li><a href="#sec-7.15">7.15 rember -&gt; S-expression version simplified even more </a></li>
+<li><a href="#sec-7.16">7.16 First Commandment (final version) </a></li>
+<li><a href="#sec-7.17">7.17 Fourth Commandment (final version) </a></li>
+<li><a href="#sec-7.18">7.18 Sixth Commandment </a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 ((6. Shadows) 96) </a>
+<ul>
+<li><a href="#sec-8.1">8.1 numbered? </a></li>
+<li><a href="#sec-8.2">8.2 numbered? in a simpler way </a></li>
+<li><a href="#sec-8.3">8.3 value </a></li>
+<li><a href="#sec-8.4">8.4 value -&gt; wrong version </a></li>
+<li><a href="#sec-8.5">8.5 1st-sub-exp </a></li>
+<li><a href="#sec-8.6">8.6 1st-sub-exp -&gt; one-liner </a></li>
+<li><a href="#sec-8.7">8.7 2nd-sub-exp </a></li>
+<li><a href="#sec-8.8">8.8 operator </a></li>
+<li><a href="#sec-8.9">8.9 value&hellip;again </a></li>
+<li><a href="#sec-8.10">8.10 1st-sub-exp -&gt; upgraded </a></li>
+<li><a href="#sec-8.11">8.11 operator -&gt; upgraded </a></li>
+<li><a href="#sec-8.12">8.12 sero? </a></li>
+<li><a href="#sec-8.13">8.13 edd1 </a></li>
+<li><a href="#sec-8.14">8.14 zub1 </a></li>
+<li><a href="#sec-8.15">8.15 plus -&gt; reloaded </a></li>
+<li><a href="#sec-8.16">8.16 lat&hellip;again </a></li>
+<li><a href="#sec-8.17">8.17 Seventh Commandment </a></li>
+<li><a href="#sec-8.18">8.18 Eighth Commandment </a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 ((7. Friends and Relations) 110) </a>
+<ul>
+<li><a href="#sec-9.1">9.1 member? </a></li>
+<li><a href="#sec-9.2">9.2 set? -&gt; ugly version </a></li>
+<li><a href="#sec-9.3">9.3 set? -&gt; pretty version </a></li>
+<li><a href="#sec-9.4">9.4 makeset -&gt; using member? </a></li>
+<li><a href="#sec-9.5">9.5 makeset -&gt; using multirember </a></li>
+<li><a href="#sec-9.6">9.6 multirember </a></li>
+<li><a href="#sec-9.7">9.7 subset? -&gt; long version </a></li>
+<li><a href="#sec-9.8">9.8 subset? -&gt; shorter version </a></li>
+<li><a href="#sec-9.9">9.9 subset? -&gt; with (and &hellip;) </a></li>
+<li><a href="#sec-9.10">9.10 eqset? -&gt; two cond lines </a></li>
+<li><a href="#sec-9.11">9.11 eqset? -&gt; one cond-line </a></li>
+<li><a href="#sec-9.12">9.12 eqset? -&gt; one-liner </a></li>
+<li><a href="#sec-9.13">9.13 intersect? -&gt; long version </a></li>
+<li><a href="#sec-9.14">9.14 intersect? -&gt; shorter version </a></li>
+<li><a href="#sec-9.15">9.15 intersect? -&gt; with (or&hellip;) </a></li>
+<li><a href="#sec-9.16">9.16 intersect  -&gt; the short version </a></li>
+<li><a href="#sec-9.17">9.17 union </a></li>
+<li><a href="#sec-9.18">9.18 xxx </a></li>
+<li><a href="#sec-9.19">9.19 intersectall </a></li>
+<li><a href="#sec-9.20">9.20 a-pair? </a></li>
+<li><a href="#sec-9.21">9.21 first </a></li>
+<li><a href="#sec-9.22">9.22 second </a></li>
+<li><a href="#sec-9.23">9.23 build </a></li>
+<li><a href="#sec-9.24">9.24 third </a></li>
+<li><a href="#sec-9.25">9.25 fun? </a></li>
+<li><a href="#sec-9.26">9.26 revrel -&gt; representation 1 </a></li>
+<li><a href="#sec-9.27">9.27 revrel -&gt; representation 2 </a></li>
+<li><a href="#sec-9.28">9.28 revpair </a></li>
+<li><a href="#sec-9.29">9.29 revrel -&gt; representation 3 </a></li>
+<li><a href="#sec-9.30">9.30 fullfun? </a></li>
+<li><a href="#sec-9.31">9.31 one-to-one? </a></li>
+<li><a href="#sec-9.32">9.32 cookies </a></li>
+</ul>
+</li>
+<li><a href="#sec-10">10 ((8. Lambda the Ultimate) 124) </a>
+<ul>
+<li><a href="#sec-10.1">10.1 rember-f </a></li>
+<li><a href="#sec-10.2">10.2 rember-f -&gt; the short version </a></li>
+<li><a href="#sec-10.3">10.3 eq?-c </a></li>
+<li><a href="#sec-10.4">10.4 rember-f -&gt; incomplete </a></li>
+<li><a href="#sec-10.5">10.5 rember-eq? </a></li>
+<li><a href="#sec-10.6">10.6 rember-f </a></li>
+<li><a href="#sec-10.7">10.7 insertL-f </a></li>
+</ul>
+</li>
+<li><a href="#sec-11">11 ((9. &hellip; and Again, and Again, and Again, &hellip;) 148) </a>
+<ul>
+<li><a href="#sec-11.1">11.1 looking </a></li>
+<li><a href="#sec-11.2">11.2 keep-looking </a></li>
+<li><a href="#sec-11.3">11.3 eternity </a></li>
+<li><a href="#sec-11.4">11.4 shift </a></li>
+<li><a href="#sec-11.5">11.5 align </a></li>
+</ul>
+</li>
+<li><a href="#sec-12">12 ((10. What is the Value of All of This?) 174) </a></li>
+<li><a href="#sec-13">13 (Intermission 192) </a></li>
+<li><a href="#sec-14">14 (Index 194) </a></li>
+<li><a href="#sec-15">15 (General Functions) </a>
+<ul>
+<li><a href="#sec-15.1">15.1 atom? </a></li>
+<li><a href="#sec-15.2">15.2 add1 </a></li>
+<li><a href="#sec-15.3">15.3 sub1 </a></li>
+</ul>
+</li>
+<li><a href="#sec-16">16 (The Ten Commandments) </a>
+<ul>
+<li><a href="#sec-16.1">16.1 The First Commandment </a></li>
+<li><a href="#sec-16.2">16.2 The Second Commandment </a></li>
+<li><a href="#sec-16.3">16.3 3 </a></li>
+<li><a href="#sec-16.4">16.4 4 </a></li>
+<li><a href="#sec-16.5">16.5 5 </a></li>
+<li><a href="#sec-16.6">16.6 6 </a></li>
+<li><a href="#sec-16.7">16.7 7 </a></li>
+<li><a href="#sec-16.8">16.8 8 </a></li>
+<li><a href="#sec-16.9">16.9 9 </a></li>
+<li><a href="#sec-16.10">16.10 10 </a></li>
+</ul>
+</li>
+<li><a href="#sec-17">17 (The Five Rules) </a>
+<ul>
+<li><a href="#sec-17.1">17.1 The Law of Car </a></li>
+<li><a href="#sec-17.2">17.2 The Law of Cdr </a></li>
+<li><a href="#sec-17.3">17.3 The Law of Cons </a></li>
+<li><a href="#sec-17.4">17.4 The Law of Null? </a></li>
+<li><a href="#sec-17.5">17.5 The Law of Eq? </a></li>
+</ul>
+</li>
+<li><a href="#sec-18">18 (Templates) </a></li>
+<li><a href="#sec-19">19 (Questions) </a></li>
+<li><a href="#sec-20">20 (Dependencies) </a></li>
+<li><a href="#sec-21">21 (Datatypes) </a>
+<ul>
+<li><a href="#sec-21.1">21.1 From Chapter 7 </a></li>
+</ul>
+</li>
+<li><a href="#sec-22">22 (Functions in Alphabetical Order) </a></li>
+<li><a href="#sec-23">23 (Parts of functions) </a>
+<ul>
+<li><a href="#sec-23.1">23.1 from member? 23 </a></li>
+</ul>
+</li>
+<li><a href="#sec-24">24 (Usages) </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> (Foreword ix) </h2>
+<div class="outline-text-2" id="text-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> (Preface xi) </h2>
+<div class="outline-text-2" id="text-2">
+
+<p>Programs accept data and produce data. Designing a program 
+requires a thorough understanding of data; a good program
+reflects the shape of the data it deals with. Most collections
+of data, and hence most programs, are recursive. Recursion is
+the act of defining an object or solving a problem in terms
+of itself.
+</p>
+<p>
+The goal of this book is to teach the reader to think recursively.
+Our first task is to decide which language to use to communicate
+this concept. There are three obvious choices: a natural language,
+such as English; formal mathematics; or a programming language.
+Natural languages are ambiguous, imprecise, and sometimes awkwardly
+verbose. These are all virtues for general communication, but
+something of a drawback for communicating concisely as precise a 
+concept as recursion. The language of mathematics is the opposite
+of natural language: it can express powerful formal ideas with
+only a few symbols. Unfortunately, the language of mathematics is
+often cryptic and barely accessible without special training. The
+marriage of technology and mathematics presents us with a third,
+almost ideal choice: a programming language. We believe that 
+programming languages are the best way to convey the concept of
+recursion. They share with mathematics the ability to give a formal
+meaning to a set of symbols. But unlike mathematics, programming
+languages can be directly experienced&ndash; you can take the programs
+in this book, observe their behavior, modify them, and experience
+the effect of these modifications.
+</p>
+<p>
+(&hellip;needs to be finished&hellip;)
+</p>
+<p>
+; Chapter 7 -&gt; Friends and Relations
+</p></div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> ((1. Toys) 2) </h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3.1" class="outline-3">
+<h3 id="sec-3.1"><span class="section-number-3">3.1</span> Law of Car </h3>
+<div class="outline-text-3" id="text-3.1">
+
+<p>The primitive car is defined only for non-
+empty lists.
+</p></div>
+
+</div>
+
+<div id="outline-container-3.2" class="outline-3">
+<h3 id="sec-3.2"><span class="section-number-3">3.2</span> Law of Cdr </h3>
+<div class="outline-text-3" id="text-3.2">
+
+<p>The primitive cdr is defined only for non-
+empty lists. The cdr of any non-empty list
+is always another list.
+</p></div>
+
+</div>
+
+<div id="outline-container-3.3" class="outline-3">
+<h3 id="sec-3.3"><span class="section-number-3">3.3</span> Law of Cons </h3>
+<div class="outline-text-3" id="text-3.3">
+
+<p>The primitive cons takes two arguments.
+The second argument to cons must be a list.
+The result is a list.
+</p></div>
+
+</div>
+
+<div id="outline-container-3.4" class="outline-3">
+<h3 id="sec-3.4"><span class="section-number-3">3.4</span> Law of Null? </h3>
+<div class="outline-text-3" id="text-3.4">
+
+<p>The primitive null? is defined only for lists.
+</p></div>
+
+</div>
+
+<div id="outline-container-3.5" class="outline-3">
+<h3 id="sec-3.5"><span class="section-number-3">3.5</span> Law of Eq? </h3>
+<div class="outline-text-3" id="text-3.5">
+
+<p>The primitive eq? takes two arguments.
+Each must be a non-numeric atom.
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> ((2. Do It, Do It Again, and Again, and Again &hellip;) 14) </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4.1" class="outline-3">
+<h3 id="sec-4.1"><span class="section-number-3">4.1</span> lat? </h3>
+<div class="outline-text-3" id="text-4.1">
+
+<p>(define lat?
+(lambda (l)
+(cond
+((null? l) #t)
+((atom? (car l)) (lat? (cdr l)))
+(else #f))))
+</p></div>
+
+</div>
+
+<div id="outline-container-4.2" class="outline-3">
+<h3 id="sec-4.2"><span class="section-number-3">4.2</span> member? </h3>
+<div class="outline-text-3" id="text-4.2">
+
+<p>(define member?
+(lambda (a lat)
+(cond
+((null? lat) #f)
+(else (or (eq? (car lat) a)
+(member? a (cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-4.3" class="outline-3">
+<h3 id="sec-4.3"><span class="section-number-3">4.3</span> First Commandment (preliminary version) </h3>
+<div class="outline-text-3" id="text-4.3">
+
+<p>Always ask null? as the first question in expressing any function.
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> ((3. Cons the Magnificent) 32) </h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5.1" class="outline-3">
+<h3 id="sec-5.1"><span class="section-number-3">5.1</span> rember -&gt; first version </h3>
+<div class="outline-text-3" id="text-5.1">
+
+<p>(define rember
+(lambda (a lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) a) (cdr lat))
+(else (rember a
+(cdr lat))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.2" class="outline-3">
+<h3 id="sec-5.2"><span class="section-number-3">5.2</span> rember -&gt; using cons </h3>
+<div class="outline-text-3" id="text-5.2">
+
+<p>(define rember
+(lambda (a lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) a) (cdr lat))
+(else (cons (car lat)
+(rember a
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.3" class="outline-3">
+<h3 id="sec-5.3"><span class="section-number-3">5.3</span> rember -&gt; simplified version </h3>
+<div class="outline-text-3" id="text-5.3">
+
+<p>(define rember
+(lambda (a lat)
+(cond
+((null? lat) (quote ()))
+((eq? (car lat) a) (cdr lat))
+(else (cons (car lat)
+(rember a (cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.4" class="outline-3">
+<h3 id="sec-5.4"><span class="section-number-3">5.4</span> firsts -&gt; partial version </h3>
+<div class="outline-text-3" id="text-5.4">
+
+<p>(define firsts
+(lambda (l)
+(cond
+((null? l) &hellip;)
+(else (cons &hellip; (firsts (cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.5" class="outline-3">
+<h3 id="sec-5.5"><span class="section-number-3">5.5</span> firsts -&gt; another partial version </h3>
+<div class="outline-text-3" id="text-5.5">
+
+<p>(define firsts
+(lambda (l)
+(cond
+((null? l) &hellip;)
+(else (cons (car (car l))
+(firsts (cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.6" class="outline-3">
+<h3 id="sec-5.6"><span class="section-number-3">5.6</span> insertR -&gt; version 1 </h3>
+<div class="outline-text-3" id="text-5.6">
+
+<p>(define insertR
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((eq? (car lat) old) (cdr lat))
+(else (cons (car lat)
+(insertR new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.7" class="outline-3">
+<h3 id="sec-5.7"><span class="section-number-3">5.7</span> insertR -&gt; version 2 </h3>
+<div class="outline-text-3" id="text-5.7">
+
+<p>(define insertR
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) old)
+(cons new (cdr lat)))
+(else (cons (car lat)
+(insertR new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.8" class="outline-3">
+<h3 id="sec-5.8"><span class="section-number-3">5.8</span> insertR -&gt; version 3 </h3>
+<div class="outline-text-3" id="text-5.8">
+
+<p>(define insertR
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) old)
+(cons old
+(cons new (cdr lat))))
+(else (cons (car lat)
+(insertR new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.9" class="outline-3">
+<h3 id="sec-5.9"><span class="section-number-3">5.9</span> insertL </h3>
+<div class="outline-text-3" id="text-5.9">
+
+<p>(define insertL
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) old)
+(cons new
+(cons old (cdr lat))))
+(else (cons (car lat)
+(insertL new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.10" class="outline-3">
+<h3 id="sec-5.10"><span class="section-number-3">5.10</span> subst </h3>
+<div class="outline-text-3" id="text-5.10">
+
+<p>(define subst
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) old)
+(cons new (cdr lat)))
+(else (cons (car lat)
+(subst new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.11" class="outline-3">
+<h3 id="sec-5.11"><span class="section-number-3">5.11</span> subst2 </h3>
+<div class="outline-text-3" id="text-5.11">
+
+<p>(define subst2
+(lambda (new o1 o2 lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) o1)
+(cons new (cdr lat))
+((eq? (car lat) o2)
+(cons new (cdr lat)))
+(else (cons (car lat)
+(subst2 new o1 o2
+(cdr lat))))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.12" class="outline-3">
+<h3 id="sec-5.12"><span class="section-number-3">5.12</span> multirember </h3>
+<div class="outline-text-3" id="text-5.12">
+
+<p>(define multirember
+(lambda (a lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((eq? (car lat) a)
+(multirember a (cdr lat)))
+(else (cons (car lat)
+(multirember a
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.13" class="outline-3">
+<h3 id="sec-5.13"><span class="section-number-3">5.13</span> multiinsertR </h3>
+<div class="outline-text-3" id="text-5.13">
+
+<p>(define multiinsertR
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((eq? (car lat) old)
+(cons (car lat)
+(cons new
+(multiinsertR new old
+(cdr lat)))))
+(else (cons (car lat)
+(multiinsertR new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.14" class="outline-3">
+<h3 id="sec-5.14"><span class="section-number-3">5.14</span> multiinsertL -&gt; version 1 </h3>
+<div class="outline-text-3" id="text-5.14">
+
+<p>(define multiinsertL
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((eq? (car lat) old)
+(cons new
+(cons old
+(multiinsertL new old
+lat))))
+(else (cons (car lat)
+(multiinsertL new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.15" class="outline-3">
+<h3 id="sec-5.15"><span class="section-number-3">5.15</span> multiinsertL -&gt; version 2 </h3>
+<div class="outline-text-3" id="text-5.15">
+
+<p>(define multiinsertL
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((eq? (car lat) old)
+(cons new
+(cons old
+(multiinsertL new old
+(cdr lat)))))
+(else (cons (car lat)
+(multiinsertL new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.16" class="outline-3">
+<h3 id="sec-5.16"><span class="section-number-3">5.16</span> multisubst </h3>
+<div class="outline-text-3" id="text-5.16">
+
+<p>(define multisubst
+(lambda (new old lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((eq? (car lat) old)
+(cons new
+(multisubst new old
+(cdr lat))))
+(else (cons (car lat)
+(multisubst new old
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-5.17" class="outline-3">
+<h3 id="sec-5.17"><span class="section-number-3">5.17</span> The Second Commandment </h3>
+<div class="outline-text-3" id="text-5.17">
+
+<p>Use cons to build lists.
+</p></div>
+
+</div>
+
+<div id="outline-container-5.18" class="outline-3">
+<h3 id="sec-5.18"><span class="section-number-3">5.18</span> The Third Commandment </h3>
+<div class="outline-text-3" id="text-5.18">
+
+<p>When building a list, describe the first typical ele-
+ment, and then cons it onto the natural recursion.
+</p></div>
+
+</div>
+
+<div id="outline-container-5.19" class="outline-3">
+<h3 id="sec-5.19"><span class="section-number-3">5.19</span> The Fourth Commandment (preliminary) </h3>
+<div class="outline-text-3" id="text-5.19">
+
+<p>Always change at least one argument while recurring. IT
+must be changed to be closer to termination. The changing
+argument must be tested in the termination condition:
+when using cdr, test termination with null?
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> ((4. Numbers Games) 58) </h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6.1" class="outline-3">
+<h3 id="sec-6.1"><span class="section-number-3">6.1</span> o+ </h3>
+<div class="outline-text-3" id="text-6.1">
+
+<p>(define o+
+(lambda (n m)
+(cond
+((zero? m) n)
+(else (add1 (o+ n (sub1 m)))))))
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6.2" class="outline-3">
+<h3 id="sec-6.2"><span class="section-number-3">6.2</span> o- </h3>
+<div class="outline-text-3" id="text-6.2">
+
+<p>(define o-
+(lambda (n m)
+(cond
+((zero? m) n)
+(else (sub1 (o- n (sub1 m)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.3" class="outline-3">
+<h3 id="sec-6.3"><span class="section-number-3">6.3</span> addtup -&gt; unfinished </h3>
+<div class="outline-text-3" id="text-6.3">
+
+<p>(define addtup
+(lambda (tup)
+(cond
+((null? tup) 0)
+(else &hellip;))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.4" class="outline-3">
+<h3 id="sec-6.4"><span class="section-number-3">6.4</span> ex </h3>
+<div class="outline-text-3" id="text-6.4">
+
+<p>(define ex
+(lambda (n m)
+(cond
+((zero? m) 0)
+(else (o+ n (ex n (sub1 m)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.5" class="outline-3">
+<h3 id="sec-6.5"><span class="section-number-3">6.5</span> tup+ version 1 </h3>
+<div class="outline-text-3" id="text-6.5">
+
+<p>(define tup+
+(lambda (tup1 tup2)
+(cond
+((and (null? tup1) (null? tup2))
+(quote ()))
+(else
+(cons (o+ (car tup1) (car tup2))
+(tup+
+(cdr tup1) (cdr tup2)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.6" class="outline-3">
+<h3 id="sec-6.6"><span class="section-number-3">6.6</span> tup+ version 2 </h3>
+<div class="outline-text-3" id="text-6.6">
+
+<p>(define tup+
+(lambda (tup1 tup2)
+(cond
+((and (null? tup1) (null? tup2))
+(quote ()))
+((null? tup1) tup2)
+((null? tup2) tup1)
+(else
+(cons (o+ (car tup1) (car tup2))
+(tup+
+(cdr tup1) (cdr tup2)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.7" class="outline-3">
+<h3 id="sec-6.7"><span class="section-number-3">6.7</span> tup+ version 3 -&gt; simplified </h3>
+<div class="outline-text-3" id="text-6.7">
+
+<p>(define tup+
+(lambda (tup1 tup2)
+(cond
+((null? tup1) tup2)
+((null? tup2) tup1)
+(else
+(cons (o+ (car tup1) (car tup2))
+(tup+
+(cdr tup1) (cdr tup2)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.8" class="outline-3">
+<h3 id="sec-6.8"><span class="section-number-3">6.8</span> &gt;  -&gt; version 1 </h3>
+<div class="outline-text-3" id="text-6.8">
+
+<p>(define &gt;
+(lambda (n m)
+(cond
+((zero? m) #t)
+((zero? n) #f)
+(else (&gt; (sub1 n) (sub1 m))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.9" class="outline-3">
+<h3 id="sec-6.9"><span class="section-number-3">6.9</span> &gt;  -&gt; version 2 </h3>
+<div class="outline-text-3" id="text-6.9">
+
+<p>(define &gt;
+(lambda (n m)
+(cond
+((zero? n) #f)
+((zero? m) #t)
+(else (&gt; (sub1 n) (sub1 m))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.10" class="outline-3">
+<h3 id="sec-6.10"><span class="section-number-3">6.10</span> &lt; </h3>
+<div class="outline-text-3" id="text-6.10">
+
+<p>(define &lt;
+(lambda (n m)
+(cond
+((zero? m) #f)
+((zero? n) #t)
+(else (&lt; (sub1 n) (sub1 m))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.11" class="outline-3">
+<h3 id="sec-6.11"><span class="section-number-3">6.11</span> = </h3>
+<div class="outline-text-3" id="text-6.11">
+
+<p>(define =
+(lambda (n m)
+(cond
+((zero? m) (zero? n))
+((zero? n) #f)
+(else (= (sub1 n) (sub1 m))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.12" class="outline-3">
+<h3 id="sec-6.12"><span class="section-number-3">6.12</span> =  -&gt; using &lt; and &gt; </h3>
+<div class="outline-text-3" id="text-6.12">
+
+<p>(define =
+(lambda (n m)
+(cond
+((&gt; n m) #f)
+((&lt; n m) #f)
+(else #t))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.13" class="outline-3">
+<h3 id="sec-6.13"><span class="section-number-3">6.13</span> expt </h3>
+<div class="outline-text-3" id="text-6.13">
+
+<p>(define expt
+(lambda (n m)
+(cond
+((zero? m) 1)
+(else (ex n (expt n (sub1 m)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.14" class="outline-3">
+<h3 id="sec-6.14"><span class="section-number-3">6.14</span> ??? </h3>
+<div class="outline-text-3" id="text-6.14">
+
+<p>(define ???
+(lambda (n m)
+(cond
+((&lt; n m) 0)
+(else (add1 (??? (o- n m) m))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.15" class="outline-3">
+<h3 id="sec-6.15"><span class="section-number-3">6.15</span> quotient </h3>
+<div class="outline-text-3" id="text-6.15">
+
+<p>(define quotient
+(lambda (n m)
+(cond
+((&lt; n m) 0)
+(else (add1 (quotient (o- n m) m))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.16" class="outline-3">
+<h3 id="sec-6.16"><span class="section-number-3">6.16</span> length </h3>
+<div class="outline-text-3" id="text-6.16">
+
+<p>(define length
+(lambda (lat)
+(cond
+((null? lat) 0)
+(else (add1 (length (cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.17" class="outline-3">
+<h3 id="sec-6.17"><span class="section-number-3">6.17</span> pick </h3>
+<div class="outline-text-3" id="text-6.17">
+
+<p>(define pick
+(lambda (n lat)
+(cond
+((zero? (sub1 n)) (car lat))
+(else (pick (sub1 n) (cdr lat))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.18" class="outline-3">
+<h3 id="sec-6.18"><span class="section-number-3">6.18</span> rempick </h3>
+<div class="outline-text-3" id="text-6.18">
+
+<p>(define rempick
+(lambda (n lat)
+(cond
+((zero? (sub1 n)) (cdr lat))
+(else (cons (car lat)
+(rempick (sub1 n)
+(cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.19" class="outline-3">
+<h3 id="sec-6.19"><span class="section-number-3">6.19</span> no-nums </h3>
+<div class="outline-text-3" id="text-6.19">
+
+<p>(define no-nums
+(lambda (lat)
+(cond
+((null? lat) (quote ()))
+(else (cond
+((number? (car lat))
+(no-nums (cdr lat)))
+(else (cons (car lat)
+(no-nums
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.20" class="outline-3">
+<h3 id="sec-6.20"><span class="section-number-3">6.20</span> all-nums </h3>
+<div class="outline-text-3" id="text-6.20">
+
+<p>(define all-nums
+(lambda (lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((number? (car lat))
+(cons (car lat)
+(all-nums (cdr lat))))
+(else (all-nums (cdr lat))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.21" class="outline-3">
+<h3 id="sec-6.21"><span class="section-number-3">6.21</span> eqan? </h3>
+<div class="outline-text-3" id="text-6.21">
+
+<p>(define eqan?
+(lambda (a1 a2)
+(cond
+((and (number? a1) (number? a2))
+(= a1 a2))
+((or (number? a1) (number? a2))
+#f)
+(else (eq? a1 a2)))))
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6.22" class="outline-3">
+<h3 id="sec-6.22"><span class="section-number-3">6.22</span> occur </h3>
+<div class="outline-text-3" id="text-6.22">
+
+<p>(define occur
+(lambda (a lat)
+(cond
+((null? lat) 0)
+(else
+(cond
+((eq? (car lat) a)
+(add1 (occur a (cdr lat))))
+(else (occur a (cdr lat))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.23" class="outline-3">
+<h3 id="sec-6.23"><span class="section-number-3">6.23</span> one? </h3>
+<div class="outline-text-3" id="text-6.23">
+
+<p>(define one?
+(lambda (n)
+(cond
+((zero? n) #f)
+(else (zero? (sub1 n))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.24" class="outline-3">
+<h3 id="sec-6.24"><span class="section-number-3">6.24</span> one? -&gt; smaller version </h3>
+<div class="outline-text-3" id="text-6.24">
+
+<p>(define one?
+(lambda (n)
+(cond
+(else (= n 1)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.25" class="outline-3">
+<h3 id="sec-6.25"><span class="section-number-3">6.25</span> one? -&gt; even smaller version </h3>
+<div class="outline-text-3" id="text-6.25">
+
+<p>(define one?
+(lambda (n)
+(= n 1)))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.26" class="outline-3">
+<h3 id="sec-6.26"><span class="section-number-3">6.26</span> rempick -&gt; using one? </h3>
+<div class="outline-text-3" id="text-6.26">
+
+<p>(define rempick
+(lambda (n lat)
+(cond
+((one? n) (cdr lat))
+(else (cons (car lat)
+(rempick (sub1 n)
+(cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-6.27" class="outline-3">
+<h3 id="sec-6.27"><span class="section-number-3">6.27</span> First Commandment (first revision) </h3>
+<div class="outline-text-3" id="text-6.27">
+
+<p>When recurring on a list of atoms, lat, ask two questions
+about it: (null? lat) and else.
+When recurring on a number, n, ask two questions about
+it: (zero? n) and else.
+</p></div>
+
+</div>
+
+<div id="outline-container-6.28" class="outline-3">
+<h3 id="sec-6.28"><span class="section-number-3">6.28</span> Fourth Commandment (first revision) </h3>
+<div class="outline-text-3" id="text-6.28">
+
+<p>Always change at least one argument while recurring. It
+must be changed to be closer to termination. The changing
+argument must be tested in the termination condition:
+when using cdr, test termination with null? and
+when using sub1, test termination with zero?.
+</p></div>
+
+</div>
+
+<div id="outline-container-6.29" class="outline-3">
+<h3 id="sec-6.29"><span class="section-number-3">6.29</span> Fifth Commandment </h3>
+<div class="outline-text-3" id="text-6.29">
+
+<p>When building a value with o+, always use 0 for the value of the
+terminating line, for adding 0 does not change the value of an
+addition.
+When building a value with ex, always use 1 for the value of the
+terminating line, for multiplying by 1 does not change the value
+of a multiplication.
+When building a value with cons, always consider () for the value
+of the terminating line.
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> ((5. <b>Oh My Gawd</b>: Its Full of Stars) 80) </h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7.1" class="outline-3">
+<h3 id="sec-7.1"><span class="section-number-3">7.1</span> rember* </h3>
+<div class="outline-text-3" id="text-7.1">
+
+<p>(define rember*
+(lambda (a l)
+(cond
+((null? l) (quote ()))
+((atom? (car l))
+(cond
+((eq? (car l) a)
+(rember* a (cdr l)))
+(else (cons (car l)
+(rember* a (cdr l))))))
+(else (cons (rember* a (car l))
+(rember* a (cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.2" class="outline-3">
+<h3 id="sec-7.2"><span class="section-number-3">7.2</span> insertR* </h3>
+<div class="outline-text-3" id="text-7.2">
+
+<p>(define insertR*
+(lambda (new old l)
+(cond
+((null?) (quote ()))
+((atom? (car l))
+(cond
+((eq? (car l) old)
+(cons old
+(cons new
+(insertR* new old
+(cdr l)))))
+(else (cons (car l)
+(insertR* new old
+(cdr l))))))
+(else (cons (insertR* new old
+(car l))
+(insertR* new old
+(cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.3" class="outline-3">
+<h3 id="sec-7.3"><span class="section-number-3">7.3</span> occur* </h3>
+<div class="outline-text-3" id="text-7.3">
+
+<p>(define occur*
+(lambda (a l)
+(cond
+((null? l) 0)
+((atom? (car l))
+(cond
+((eq? (car l) a)
+(add1 (occur* a (cdr l))))
+(else (occur* a (cdr l))))
+(else (o+ (occur* a (car l))
+(occur* a (cdr l))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.4" class="outline-3">
+<h3 id="sec-7.4"><span class="section-number-3">7.4</span> subst* </h3>
+<div class="outline-text-3" id="text-7.4">
+
+<p>(define subst*
+(lambda (new old l)
+(cond
+((null? l) (quote ()))
+((atom? (car l))
+(cond
+((eq? (car l) old)
+(cons new
+(subst* new old (cdr l))))
+(else (cons (car l)
+(subst* new old
+(cdr l))))))
+(else
+(cons (subst* new old (car l))
+(subst* new old (cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.5" class="outline-3">
+<h3 id="sec-7.5"><span class="section-number-3">7.5</span> insertL* </h3>
+<div class="outline-text-3" id="text-7.5">
+
+<p>(define insertL*
+(lambda (new old l)
+(cond
+((null? l) (quote ()))
+((atom? (car l))
+(cond
+((eq? (car l) old)
+(cons new
+(cons old
+(insertL* new old
+(cdr l)))))
+(else (cons (car l)
+(insertL* new old
+(cdr l))))))
+(else (cons (insertL* new old
+(car l))
+(insertL* new old
+(cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.6" class="outline-3">
+<h3 id="sec-7.6"><span class="section-number-3">7.6</span> member* </h3>
+<div class="outline-text-3" id="text-7.6">
+
+<p>(define member*
+(lambda (a l)
+(cond
+((null? l) #f)
+((atom? (car l))
+(or (eq? (car l) a)
+(member* a (cdr l))))
+(else (or (member* a (car l))
+(member* a (cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.7" class="outline-3">
+<h3 id="sec-7.7"><span class="section-number-3">7.7</span> leftmost </h3>
+<div class="outline-text-3" id="text-7.7">
+
+<p>(define leftmost
+(lambda (l)
+(cond
+((atom? (car l) (car l))
+(else (leftmost (car l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.8" class="outline-3">
+<h3 id="sec-7.8"><span class="section-number-3">7.8</span> eqlist? -&gt; first version </h3>
+<div class="outline-text-3" id="text-7.8">
+
+<p>(define eqlist?
+(lambda (l1 l2)
+(cond
+((and (null? l1) (null? l2)) #t)
+((and (null? l1) (atom? (car l2)))
+#f)
+((null? l1) #f)
+((and (atom? (car l1)) (null? l2))
+#f)
+((and (atom? (car l1))
+(atom? (car l2))
+(and (eqan? (car l1) (car l2))
+(eqlist? (cdr l1) (cdr l2))))
+((atom? (car l1)) #f)
+((null? l2) #f)
+((atom? (car l2)) #f)
+(else
+(and (eqlist? (car l1) (car l2))
+(eqlist? (cdr l1) (cdr l2))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.9" class="outline-3">
+<h3 id="sec-7.9"><span class="section-number-3">7.9</span> eqlist? -&gt; second version </h3>
+<div class="outline-text-3" id="text-7.9">
+
+<p>(define eqlist?
+(lambda (l1 l2)
+(cond
+((and (null? l1) (null? l2)) #t)
+((or (null? l1) (null? l2)) #f)
+((and (atom? (car l1))
+(atom? (car l2)))
+(and (eqan? (car l1) (cdr l2))))
+((or (atom? (car l1))
+(atom? (car l2)))
+#f)
+(else
+(and (eqlist? (car l1) (car l2))
+(eqlist? (cdr l1) (cdr l2)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.10" class="outline-3">
+<h3 id="sec-7.10"><span class="section-number-3">7.10</span> equal? -&gt; first version </h3>
+<div class="outline-text-3" id="text-7.10">
+
+<p>(define equal?
+(lambda (s1 s2)
+(cond
+((and (atom? s1) (atom? s2))
+(eqan? s1 s2))
+((atom? s1) #f)
+((atom? s2) #f)
+(else (eqlist? s1 s2))))) 
+</p></div>
+
+</div>
+
+<div id="outline-container-7.11" class="outline-3">
+<h3 id="sec-7.11"><span class="section-number-3">7.11</span> equal? -&gt; simplified version </h3>
+<div class="outline-text-3" id="text-7.11">
+
+<p>(define equal?
+(lambda (s1 s2)
+(cond
+((and (atom? s1) (atom? s2))
+(eqan? s1 s2))
+((or (atom? s1) (atom? s2))
+#f)
+(else (eqlist? s1 s2)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.12" class="outline-3">
+<h3 id="sec-7.12"><span class="section-number-3">7.12</span> eqlist? -&gt; using equal? </h3>
+<div class="outline-text-3" id="text-7.12">
+
+<p>(define eqlist?
+(lambda (l1 l2)
+(cond
+((and (null? l1) (null? l2)) #t)
+((or (null? l1) (null? l2)) #f)
+(else
+(and (equal? (car l1) (car l2))
+(eqlist? (cdr l1) (cdr l2)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.13" class="outline-3">
+<h3 id="sec-7.13"><span class="section-number-3">7.13</span> rember -&gt; S-expression version </h3>
+<div class="outline-text-3" id="text-7.13">
+
+<p>(define rember
+(lambda (s l)
+(cond
+((null? l) (quote ()))
+((atom? (car l))
+(cond
+((equal? (car l) s) (cdr l))
+(else (cons (car l)
+(rember s (cdr l))))))
+(else (cond
+((equal? (car l) s) (cdr l))
+(else (cons (car l)
+(rember s
+(cdr l)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.14" class="outline-3">
+<h3 id="sec-7.14"><span class="section-number-3">7.14</span> rember -&gt; S-expression version simplified </h3>
+<div class="outline-text-3" id="text-7.14">
+
+<p>(define rember
+(lambda (s l)
+(cond
+((null? l) (quote ()))
+(else (cond
+((equal? (car l) s) (cdr l))
+(else (cons (car l)
+(rember s
+(cdr l)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.15" class="outline-3">
+<h3 id="sec-7.15"><span class="section-number-3">7.15</span> rember -&gt; S-expression version simplified even more </h3>
+<div class="outline-text-3" id="text-7.15">
+
+<p>(define rember
+(lambda (s l)
+(cond
+((null? l) (quote ()))
+((equal? (car l) s) (cdr l))
+(else (cons (car l)
+(rember s (cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-7.16" class="outline-3">
+<h3 id="sec-7.16"><span class="section-number-3">7.16</span> First Commandment (final version) </h3>
+<div class="outline-text-3" id="text-7.16">
+
+<p>When recurring on a list of atoms, lat, ask two questions
+about it: (null? lat) and else.
+When recurring on a number, n, ask two questions about
+it: (zero? n) and else.
+When recurring on a list of S-expressions, l, ask three
+questions about it: (null? l), (atom? (car l)), and else.
+</p></div>
+
+</div>
+
+<div id="outline-container-7.17" class="outline-3">
+<h3 id="sec-7.17"><span class="section-number-3">7.17</span> Fourth Commandment (final version) </h3>
+<div class="outline-text-3" id="text-7.17">
+
+<p>Always change at least one argument while recurring.
+When recurring on a list of atoms, lat, use (cdr lat). When
+recurring on a number, n, use (sub1 n). And when recur-
+ring on a list of S-expressions, l, use (car l) and (cdr l) if
+neither (null? l) nor (atom? (car l)) are true.
+</p>
+<p>
+It must be changed to be closer to termination. The chang-
+ing argument must be tested in the termination condition:
+</p>
+<p>
+when using cdr, test termination with null? and
+when using sub1, test termination with zero?.
+</p></div>
+
+</div>
+
+<div id="outline-container-7.18" class="outline-3">
+<h3 id="sec-7.18"><span class="section-number-3">7.18</span> Sixth Commandment </h3>
+<div class="outline-text-3" id="text-7.18">
+
+<p>Simplify only after the function is correct.
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> ((6. Shadows) 96) </h2>
+<div class="outline-text-2" id="text-8">
+
+
+</div>
+
+<div id="outline-container-8.1" class="outline-3">
+<h3 id="sec-8.1"><span class="section-number-3">8.1</span> numbered? </h3>
+<div class="outline-text-3" id="text-8.1">
+
+<p>(define numbered?
+(lambda (aexp)
+(cond
+((atom? aexp) (number? aexp))
+((eq? (car (cdr aexp)) (quote +))
+(and (numbered? (car aexp))
+(numbered?
+(car (cdr (cdr aexp))))))
+((eq? (car (cdr aexp)) (quote x))
+(and (numbered? (car aexp))
+(numbered?
+(car (cdr (cdr aexp))))))
+((eq? (car (cdr aexp)) (quote x))
+(and (numbered? (car aexp))
+(numbered?
+(car (cdr (cdr aexp)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.2" class="outline-3">
+<h3 id="sec-8.2"><span class="section-number-3">8.2</span> numbered? in a simpler way </h3>
+<div class="outline-text-3" id="text-8.2">
+
+<p>(define numbered?
+(lambda (aexp)
+(cond
+((atom? aexp) (number? aexp))
+(else
+(and (numbered? (car aexp))
+(numbered?
+(car (cdr (cdr aexp)))))))))
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8.3" class="outline-3">
+<h3 id="sec-8.3"><span class="section-number-3">8.3</span> value </h3>
+<div class="outline-text-3" id="text-8.3">
+
+<p>(define value
+(lambda (nexp)
+(cond
+((atom? nexp) nexp)
+((eq? (car (cdr nexp)) (quote <del>))        (o</del> (value (car nexp))
+(value (car (cdr (cdr nexp))))))
+((eq? (car (cdr nexp)) (quote x))
+(x (value (car nexp))
+(value (car (cdr (cdr nexp))))))
+(else
+(expt (value (car nexp))
+(value
+(car (cdr (cdr nexp)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.4" class="outline-3">
+<h3 id="sec-8.4"><span class="section-number-3">8.4</span> value -&gt; wrong version </h3>
+<div class="outline-text-3" id="text-8.4">
+
+<p>(define value
+(lambda (nexp)
+(cond
+((atom? nexp) nexp)
+((eq? (car nexp) (quote <del>))        (o</del> (value (cdr nexp))
+(value (cdr (cdr nexp)))))
+((eq? (car nexp) (quote x))
+(x (value (cdr nexp))
+(value (cdr (cdr nexp)))))
+(else
+(expt (value (cdr nexp))
+(value (cdr (cdr nexp))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.5" class="outline-3">
+<h3 id="sec-8.5"><span class="section-number-3">8.5</span> 1st-sub-exp </h3>
+<div class="outline-text-3" id="text-8.5">
+
+<p>(define 1st-sub-exp
+(lambda (aexp)
+(cond
+(else (car (cdr aexp))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.6" class="outline-3">
+<h3 id="sec-8.6"><span class="section-number-3">8.6</span> 1st-sub-exp -&gt; one-liner </h3>
+<div class="outline-text-3" id="text-8.6">
+
+<p>(define 1st-sub-exp
+(lambda (aexp)
+(car (cdr aexp))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.7" class="outline-3">
+<h3 id="sec-8.7"><span class="section-number-3">8.7</span> 2nd-sub-exp </h3>
+<div class="outline-text-3" id="text-8.7">
+
+<p>(define 2nd-sub-exp
+(lambda (aexp)
+(car (cdr (cdr aexp)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.8" class="outline-3">
+<h3 id="sec-8.8"><span class="section-number-3">8.8</span> operator </h3>
+<div class="outline-text-3" id="text-8.8">
+
+<p>(define operator
+(lambda (aexp)
+(car aexp)))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.9" class="outline-3">
+<h3 id="sec-8.9"><span class="section-number-3">8.9</span> value&hellip;again </h3>
+<div class="outline-text-3" id="text-8.9">
+
+<p>(define value
+(lambda (nexp)
+(cond
+((atom? nexp) nexp)
+((eq? (operator nexp) (quote <del>))        (o</del> (value (1st-sub-exp nexp))
+(value (2nd-sub-exp nexp))))
+((eq? (operator nexp) (quote x))
+(x (value (1st-sub-exp nexp))
+(value (2nd-sub-exp nexp))))
+(else
+(expt (value (1st-sub-exp nexp))
+(value (2nd-sub-exp nexp)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.10" class="outline-3">
+<h3 id="sec-8.10"><span class="section-number-3">8.10</span> 1st-sub-exp -&gt; upgraded </h3>
+<div class="outline-text-3" id="text-8.10">
+
+<p>(define 1st-sub-exp
+(lambda (aexp)
+(car aexp)))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.11" class="outline-3">
+<h3 id="sec-8.11"><span class="section-number-3">8.11</span> operator -&gt; upgraded </h3>
+<div class="outline-text-3" id="text-8.11">
+
+<p>(define operator
+(lambda (aexp)
+(car (cdr aexp))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.12" class="outline-3">
+<h3 id="sec-8.12"><span class="section-number-3">8.12</span> sero? </h3>
+<div class="outline-text-3" id="text-8.12">
+
+<p>(define sero?
+(lambda (n)
+(null? n)))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.13" class="outline-3">
+<h3 id="sec-8.13"><span class="section-number-3">8.13</span> edd1 </h3>
+<div class="outline-text-3" id="text-8.13">
+
+<p>(define edd1
+(lambda (n)
+(cons (quote ()) n)))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.14" class="outline-3">
+<h3 id="sec-8.14"><span class="section-number-3">8.14</span> zub1 </h3>
+<div class="outline-text-3" id="text-8.14">
+
+<p>(define zub1
+(lambda (n)
+(cdr n)))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.15" class="outline-3">
+<h3 id="sec-8.15"><span class="section-number-3">8.15</span> plus -&gt; reloaded </h3>
+<div class="outline-text-3" id="text-8.15">
+
+<p>(define plus
+(lambda (n m)
+(cond
+((sero? m) n)
+(else (edd1 (plus n (zub1 m)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.16" class="outline-3">
+<h3 id="sec-8.16"><span class="section-number-3">8.16</span> lat&hellip;again </h3>
+<div class="outline-text-3" id="text-8.16">
+
+<p>(define lat?
+(lambda (l)
+(cond
+((null? l) #t)
+((atom? (car l)) (lat? (cdr l)))
+(else #f))))
+</p></div>
+
+</div>
+
+<div id="outline-container-8.17" class="outline-3">
+<h3 id="sec-8.17"><span class="section-number-3">8.17</span> Seventh Commandment </h3>
+<div class="outline-text-3" id="text-8.17">
+
+<p>Recur on the subparts that are of the same nature:
+</p><ul>
+<li>
+On the sublists of a list.
+</li>
+<li>
+On the subexpressions of an arithmetic expression.
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-8.18" class="outline-3">
+<h3 id="sec-8.18"><span class="section-number-3">8.18</span> Eighth Commandment </h3>
+<div class="outline-text-3" id="text-8.18">
+
+<p>Use help functions to abstract from representations
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> ((7. Friends and Relations) 110) </h2>
+<div class="outline-text-2" id="text-9">
+
+
+</div>
+
+<div id="outline-container-9.1" class="outline-3">
+<h3 id="sec-9.1"><span class="section-number-3">9.1</span> member? </h3>
+<div class="outline-text-3" id="text-9.1">
+
+<p>(define member?
+(lambda (a lat)
+(cond
+((null? lat) #f)
+(else (or (eq? (car lat) a)
+(member? a (cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.2" class="outline-3">
+<h3 id="sec-9.2"><span class="section-number-3">9.2</span> set? -&gt; ugly version </h3>
+<div class="outline-text-3" id="text-9.2">
+
+<p>(define set?
+(lambda (lat)
+(cond
+((null? lat) #t)
+(else
+(cond
+((member? (car lat) (cdr lat))
+#f)
+(else (set? (cdr lat))))))))
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-9.3" class="outline-3">
+<h3 id="sec-9.3"><span class="section-number-3">9.3</span> set? -&gt; pretty version </h3>
+<div class="outline-text-3" id="text-9.3">
+
+<p>(define set?
+(lambda (lat)
+(cond
+((null? lat) #t)
+((member? (car lat) (cdr lat)) #f)
+(else (set? (cdr lat))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.4" class="outline-3">
+<h3 id="sec-9.4"><span class="section-number-3">9.4</span> makeset -&gt; using member? </h3>
+<div class="outline-text-3" id="text-9.4">
+
+<p>(define makeset
+(lambda (lat)
+(cond
+((null? lat) (quote ()))
+((member? (car lat) (cdr lat))
+(makeset (cdr lat)))
+(else (cons (car lat)
+(makeset (cdr lat)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.5" class="outline-3">
+<h3 id="sec-9.5"><span class="section-number-3">9.5</span> makeset -&gt; using multirember </h3>
+<div class="outline-text-3" id="text-9.5">
+
+<p>(define makeset
+(lambda (lat)
+(cond
+((null? lat) (quote ()))
+(else (cons (car lat)
+(makeset
+(multirember (car lat)
+(cdr lat))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.6" class="outline-3">
+<h3 id="sec-9.6"><span class="section-number-3">9.6</span> multirember </h3>
+<div class="outline-text-3" id="text-9.6">
+
+<p>(define multirember
+(lambda (a lat)
+(cond
+((null? lat) (quote ()))
+(else
+(cond
+((eq? (car lat) a)
+(multirember a (cdr lat)))
+(else (cons (car lat)
+(multirember a
+(cdr lat)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.7" class="outline-3">
+<h3 id="sec-9.7"><span class="section-number-3">9.7</span> subset? -&gt; long version </h3>
+<div class="outline-text-3" id="text-9.7">
+
+<p>(define subset?
+(lambda (set1 set2)
+(cond
+((null? set1) #t)
+(else (cond
+((member? (car set1) set2)
+(subset? (cdr set1) set2))
+(else #f))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.8" class="outline-3">
+<h3 id="sec-9.8"><span class="section-number-3">9.8</span> subset? -&gt; shorter version </h3>
+<div class="outline-text-3" id="text-9.8">
+
+<p>(define subset?
+(lambda (set1 set2)
+(cond
+((null? set1) #t)
+((member? (car set1) set2)
+(subset? (cdr set1) set2))
+(else #f))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.9" class="outline-3">
+<h3 id="sec-9.9"><span class="section-number-3">9.9</span> subset? -&gt; with (and &hellip;) </h3>
+<div class="outline-text-3" id="text-9.9">
+
+<p>(define subset?
+(lambda (set1 set2)
+(cond
+((null? set1) #t)
+(else
+(and (member? (car set1) set2)
+(subset? (cdr set1) set2))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.10" class="outline-3">
+<h3 id="sec-9.10"><span class="section-number-3">9.10</span> eqset? -&gt; two cond lines </h3>
+<div class="outline-text-3" id="text-9.10">
+
+<p>(define eqset?
+(lambda (set1 set2)
+(cond
+((subset? set1 set2)
+(subset? set2 set1))
+(else #f))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.11" class="outline-3">
+<h3 id="sec-9.11"><span class="section-number-3">9.11</span> eqset? -&gt; one cond-line </h3>
+<div class="outline-text-3" id="text-9.11">
+
+<p>(define eqset? 
+(lambda (set1 set2)
+(cond
+(else (and (subset? set1 set2)
+(subset? set2 set1))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.12" class="outline-3">
+<h3 id="sec-9.12"><span class="section-number-3">9.12</span> eqset? -&gt; one-liner </h3>
+<div class="outline-text-3" id="text-9.12">
+
+<p>(define eqset?
+(lambda (set1 set2)
+(and (subset? set1 set2)
+(subset? set2 set1))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.13" class="outline-3">
+<h3 id="sec-9.13"><span class="section-number-3">9.13</span> intersect? -&gt; long version </h3>
+<div class="outline-text-3" id="text-9.13">
+
+<p>(define intersect?
+(lambda (set1 set2)
+(cond
+((null? set1) #f)
+(else
+(cond
+((member? (car set1) set2) #t)
+(else (intersect?
+(cdr set1) set2)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.14" class="outline-3">
+<h3 id="sec-9.14"><span class="section-number-3">9.14</span> intersect? -&gt; shorter version </h3>
+<div class="outline-text-3" id="text-9.14">
+
+<p>(define intersect?
+(lambda (set1 set2)
+(cond
+((null? set1) #f)
+((member? (car set1) set2) #t)
+(else (intersect? (cdr set1) set2)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.15" class="outline-3">
+<h3 id="sec-9.15"><span class="section-number-3">9.15</span> intersect? -&gt; with (or&hellip;) </h3>
+<div class="outline-text-3" id="text-9.15">
+
+<p>(define intersect?
+(lambda (set1 set2)
+(cond
+((null? set1) #f)
+(else (or (member? (car set1) set2)
+(intersect?
+(cdr set1) set2))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.16" class="outline-3">
+<h3 id="sec-9.16"><span class="section-number-3">9.16</span> intersect  -&gt; the short version </h3>
+<div class="outline-text-3" id="text-9.16">
+
+<p>(define intersect
+(lambda (set1 set2)
+(cond
+((null? set1) (quote ()))
+((member? (car set1) set2)
+(cons (car set1)
+(intersect (cdr set1) set2)))
+(else (intersect (cdr set1) set2)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.17" class="outline-3">
+<h3 id="sec-9.17"><span class="section-number-3">9.17</span> union </h3>
+<div class="outline-text-3" id="text-9.17">
+
+<p>(define union
+(lambda (set1 set2)
+(cond
+((null? set1) set2)
+((member? (car set1) set2)
+(union (cdr set1) set2))
+(else (cons (car set1)
+(union (cdr set1) set2))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.18" class="outline-3">
+<h3 id="sec-9.18"><span class="section-number-3">9.18</span> xxx </h3>
+<div class="outline-text-3" id="text-9.18">
+
+<p>(define xxx
+(lambda (set1 set2)
+(cond
+((null? set1) (quote ()))
+((member? (car set1) set2)
+(xxx (cdr set1) set2))
+(else (cons (car set1)
+(xxx (cdr set1) set2))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.19" class="outline-3">
+<h3 id="sec-9.19"><span class="section-number-3">9.19</span> intersectall </h3>
+<div class="outline-text-3" id="text-9.19">
+
+<p>(define intersectall
+(lambda (l-set)
+(cond
+((null? (cdr l-set)) (car l-set))
+(else (intersect (car l-set)
+(intersectall (cdr l-set)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.20" class="outline-3">
+<h3 id="sec-9.20"><span class="section-number-3">9.20</span> a-pair? </h3>
+<div class="outline-text-3" id="text-9.20">
+
+<p>(define a-pair?
+(lambda (x)
+(cond
+((atom? x) #f)
+((null? x) #f)
+((null? (cdr x)) #f)
+((null? (cdr (cdr x))) #t)
+(else #f))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.21" class="outline-3">
+<h3 id="sec-9.21"><span class="section-number-3">9.21</span> first </h3>
+<div class="outline-text-3" id="text-9.21">
+
+<p>(define first
+(lambda (p)
+(cond
+(else (car p)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.22" class="outline-3">
+<h3 id="sec-9.22"><span class="section-number-3">9.22</span> second </h3>
+<div class="outline-text-3" id="text-9.22">
+
+<p>(define second
+(lambda (p)
+(cond
+(else (car (cdr p))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.23" class="outline-3">
+<h3 id="sec-9.23"><span class="section-number-3">9.23</span> build </h3>
+<div class="outline-text-3" id="text-9.23">
+
+<p>(define build
+(lambda (s1 s2)
+(cond
+(else (cons s1
+(cons s2 (quote ())))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.24" class="outline-3">
+<h3 id="sec-9.24"><span class="section-number-3">9.24</span> third </h3>
+<div class="outline-text-3" id="text-9.24">
+
+<p>(define third
+(lambda (l)
+(car (cdr (cdr l)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.25" class="outline-3">
+<h3 id="sec-9.25"><span class="section-number-3">9.25</span> fun? </h3>
+<div class="outline-text-3" id="text-9.25">
+
+<p>(define fun?
+(lambda (rel)
+(set? (firsts rel))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.26" class="outline-3">
+<h3 id="sec-9.26"><span class="section-number-3">9.26</span> revrel -&gt; representation 1 </h3>
+<div class="outline-text-3" id="text-9.26">
+
+<p>(define revrel
+(lambda (rel)
+(cond
+((null? rel) (quote ()))
+(else (cons (build
+(second (car rel))
+(first (car rel)))
+(revrel (cdr rel)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.27" class="outline-3">
+<h3 id="sec-9.27"><span class="section-number-3">9.27</span> revrel -&gt; representation 2 </h3>
+<div class="outline-text-3" id="text-9.27">
+
+<p>(define revrel
+(lambda (rel)
+(cond
+((null? rel) (quote ()))
+(else (cons (cons
+(car (cdr (car rel)))
+(cons (car (car rel))
+(quote ())))
+(revrel (cdr rel)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.28" class="outline-3">
+<h3 id="sec-9.28"><span class="section-number-3">9.28</span> revpair </h3>
+<div class="outline-text-3" id="text-9.28">
+
+<p>(define revpair
+(lambda (pair)
+(build (second pair) (first pair))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.29" class="outline-3">
+<h3 id="sec-9.29"><span class="section-number-3">9.29</span> revrel -&gt; representation 3 </h3>
+<div class="outline-text-3" id="text-9.29">
+
+<p>(define revrel
+(lambda (rel)
+(cond
+((null? rel) (quote ()))
+(else (cons (revpair (car rel))
+(revrel (cdr rel)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.30" class="outline-3">
+<h3 id="sec-9.30"><span class="section-number-3">9.30</span> fullfun? </h3>
+<div class="outline-text-3" id="text-9.30">
+
+<p>(define fullfun?
+(lambda (fun)
+(set? (seconds fun))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.31" class="outline-3">
+<h3 id="sec-9.31"><span class="section-number-3">9.31</span> one-to-one? </h3>
+<div class="outline-text-3" id="text-9.31">
+
+<p>(define one-to-one?
+(lambda (fun)
+(fun? (revrel fun))))
+</p></div>
+
+</div>
+
+<div id="outline-container-9.32" class="outline-3">
+<h3 id="sec-9.32"><span class="section-number-3">9.32</span> cookies </h3>
+<div class="outline-text-3" id="text-9.32">
+
+<p>(define cookies
+(lambda ()
+(bake
+(quote (350 degrees))
+(quote (12 minutes))
+(mix
+(quote (walnuts 1 cup))
+(quote (chocolate-chips 16 ounces))
+(mix
+(mix
+(quote (flour 2 cups))
+(quote (oatmeal 2 cups))
+(quote (salt .5 teaspoon))
+(quote (baking-powder 1 teaspoon))
+(quote (baking-soda 1 teaspoon)))
+(mix
+(quote (eggs 2 large))
+(quote (vanilla 1 teaspoon))
+(cream
+(quote (butter 1 cup))
+(quote (sugar 2 cups)))))))))
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> ((8. Lambda the Ultimate) 124) </h2>
+<div class="outline-text-2" id="text-10">
+
+
+</div>
+
+<div id="outline-container-10.1" class="outline-3">
+<h3 id="sec-10.1"><span class="section-number-3">10.1</span> rember-f </h3>
+<div class="outline-text-3" id="text-10.1">
+
+<p>(define rember-f
+(lambda (test? a l)
+(cond
+((null? l) (quote ()))
+(else (cond
+((test? (car l) a) (cdr l))
+(else (cons (car l)
+(rember-f test? a
+(cdr l)))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-10.2" class="outline-3">
+<h3 id="sec-10.2"><span class="section-number-3">10.2</span> rember-f -&gt; the short version </h3>
+<div class="outline-text-3" id="text-10.2">
+
+<p>(define rember-f
+(lambda (test? a l)
+(cond
+((null? l) (quote ()))
+((test? (car l) a) (cdr l))
+(else (cons (car l)
+(rember-f test? a
+(cdr l)))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-10.3" class="outline-3">
+<h3 id="sec-10.3"><span class="section-number-3">10.3</span> eq?-c </h3>
+<div class="outline-text-3" id="text-10.3">
+
+<p>(define eq?-c
+(lambda (a)
+(lambda (x)
+(eq? x a))))
+</p></div>
+
+</div>
+
+<div id="outline-container-10.4" class="outline-3">
+<h3 id="sec-10.4"><span class="section-number-3">10.4</span> rember-f -&gt; incomplete </h3>
+<div class="outline-text-3" id="text-10.4">
+
+<p>(define rember-f
+(lambda (test?)
+(lambda (a l)
+(cond
+((null? l) (quote ()))
+((test? (car l) a) (cdr l))
+(else (cons (car l) &hellip;))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-10.5" class="outline-3">
+<h3 id="sec-10.5"><span class="section-number-3">10.5</span> rember-eq? </h3>
+<div class="outline-text-3" id="text-10.5">
+
+<p>(define rember-eq? (rember-f test?))
+</p></div>
+
+</div>
+
+<div id="outline-container-10.6" class="outline-3">
+<h3 id="sec-10.6"><span class="section-number-3">10.6</span> rember-f </h3>
+<div class="outline-text-3" id="text-10.6">
+
+<p>(define rember-f
+(lambda (test?)
+(lambda (a l)
+(cond
+((null? l) (quote ()))
+((test? (car l) a) (cdr l))
+(else (cons (car l)
+((rember-f test?) a
+(cdr l))))))))
+</p></div>
+
+</div>
+
+<div id="outline-container-10.7" class="outline-3">
+<h3 id="sec-10.7"><span class="section-number-3">10.7</span> insertL-f </h3>
+<div class="outline-text-3" id="text-10.7">
+
+<p>(define insertL-f
+(lambda (test?)
+(lambda (new old l)
+(cond
+((null? l) (quote ()))
+((test? (car l) old)
+(cons new (cons old (cdr l))))
+(else (cons (car l)
+((insertR-f test?) new old
+(cdr l))))))))
+</p>
+<p>
+(&hellip;to be continued&hellip;)
+(&hellip;to be continued&hellip;)
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> ((9. &hellip; and Again, and Again, and Again, &hellip;) 148) </h2>
+<div class="outline-text-2" id="text-11">
+
+
+</div>
+
+<div id="outline-container-11.1" class="outline-3">
+<h3 id="sec-11.1"><span class="section-number-3">11.1</span> looking </h3>
+<div class="outline-text-3" id="text-11.1">
+
+<p>(define looking
+(lambda (a lat)
+(keep-looking a (pick 1 lat) lat)))
+</p></div>
+
+</div>
+
+<div id="outline-container-11.2" class="outline-3">
+<h3 id="sec-11.2"><span class="section-number-3">11.2</span> keep-looking </h3>
+<div class="outline-text-3" id="text-11.2">
+
+<p>(define keep-looking
+(lambda (a sorn lat)
+(cond
+((number? sorn)
+(keep-looking a (pick sorn lat) lat))
+(else (eq? sorn a)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-11.3" class="outline-3">
+<h3 id="sec-11.3"><span class="section-number-3">11.3</span> eternity </h3>
+<div class="outline-text-3" id="text-11.3">
+
+<p>(define eternity
+(lambda (x)
+(eternity x)))
+</p></div>
+
+</div>
+
+<div id="outline-container-11.4" class="outline-3">
+<h3 id="sec-11.4"><span class="section-number-3">11.4</span> shift </h3>
+<div class="outline-text-3" id="text-11.4">
+
+<p>(define shift
+(lambda (pair)
+(build (first (first pair))
+(build (second (first pair))
+(second pair)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-11.5" class="outline-3">
+<h3 id="sec-11.5"><span class="section-number-3">11.5</span> align </h3>
+<div class="outline-text-3" id="text-11.5">
+
+<p>(define align
+(lambda (pora)
+(cond
+((atom? pora) pora)
+((a-pair? (first pora))
+(align (shift pora)))
+(else (build (first pora)
+(align (second pora)))))))
+(&hellip;to be continued&hellip;)
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> ((10. What is the Value of All of This?) 174) </h2>
+<div class="outline-text-2" id="text-12">
+
+</div>
+
+</div>
+
+<div id="outline-container-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> (Intermission 192) </h2>
+<div class="outline-text-2" id="text-13">
+
+</div>
+
+</div>
+
+<div id="outline-container-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> (Index 194) </h2>
+<div class="outline-text-2" id="text-14">
+
+</div>
+
+</div>
+
+<div id="outline-container-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> (General Functions) </h2>
+<div class="outline-text-2" id="text-15">
+
+
+</div>
+
+<div id="outline-container-15.1" class="outline-3">
+<h3 id="sec-15.1"><span class="section-number-3">15.1</span> atom? </h3>
+<div class="outline-text-3" id="text-15.1">
+
+<p>(define atom?
+(lambda (x)
+(and (not (pair? x)) (not (null? x)))))
+</p></div>
+
+</div>
+
+<div id="outline-container-15.2" class="outline-3">
+<h3 id="sec-15.2"><span class="section-number-3">15.2</span> add1 </h3>
+<div class="outline-text-3" id="text-15.2">
+
+<p>(define add1
+(lambda (n)
+(+ n 1)))
+</p></div>
+
+</div>
+
+<div id="outline-container-15.3" class="outline-3">
+<h3 id="sec-15.3"><span class="section-number-3">15.3</span> sub1 </h3>
+<div class="outline-text-3" id="text-15.3">
+
+<p>(define sub1
+(lambda (n)
+(- n 1)))
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-16" class="outline-2">
+<h2 id="sec-16"><span class="section-number-2">16</span> (The Ten Commandments) </h2>
+<div class="outline-text-2" id="text-16">
+
+
+</div>
+
+<div id="outline-container-16.1" class="outline-3">
+<h3 id="sec-16.1"><span class="section-number-3">16.1</span> The First Commandment </h3>
+<div class="outline-text-3" id="text-16.1">
+
+<p>When recurring on a list of atoms, lat, ask
+two questions about it: (null? lat) and else.
+When recurring on a number, n, ask two
+questions about it: (zero? n) and else.
+When recurring on a list of S-expressions, l,
+ask three questions about it: (null? l), (atom?
+(car l)), and else. 
+</p></div>
+
+</div>
+
+<div id="outline-container-16.2" class="outline-3">
+<h3 id="sec-16.2"><span class="section-number-3">16.2</span> The Second Commandment </h3>
+<div class="outline-text-3" id="text-16.2">
+
+<p>Use cons to build lists. 
+</p></div>
+
+</div>
+
+<div id="outline-container-16.3" class="outline-3">
+<h3 id="sec-16.3"><span class="section-number-3">16.3</span> 3 </h3>
+<div class="outline-text-3" id="text-16.3">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.4" class="outline-3">
+<h3 id="sec-16.4"><span class="section-number-3">16.4</span> 4 </h3>
+<div class="outline-text-3" id="text-16.4">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.5" class="outline-3">
+<h3 id="sec-16.5"><span class="section-number-3">16.5</span> 5 </h3>
+<div class="outline-text-3" id="text-16.5">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.6" class="outline-3">
+<h3 id="sec-16.6"><span class="section-number-3">16.6</span> 6 </h3>
+<div class="outline-text-3" id="text-16.6">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.7" class="outline-3">
+<h3 id="sec-16.7"><span class="section-number-3">16.7</span> 7 </h3>
+<div class="outline-text-3" id="text-16.7">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.8" class="outline-3">
+<h3 id="sec-16.8"><span class="section-number-3">16.8</span> 8 </h3>
+<div class="outline-text-3" id="text-16.8">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.9" class="outline-3">
+<h3 id="sec-16.9"><span class="section-number-3">16.9</span> 9 </h3>
+<div class="outline-text-3" id="text-16.9">
+
+</div>
+
+</div>
+
+<div id="outline-container-16.10" class="outline-3">
+<h3 id="sec-16.10"><span class="section-number-3">16.10</span> 10 </h3>
+<div class="outline-text-3" id="text-16.10">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-17" class="outline-2">
+<h2 id="sec-17"><span class="section-number-2">17</span> (The Five Rules) </h2>
+<div class="outline-text-2" id="text-17">
+
+
+</div>
+
+<div id="outline-container-17.1" class="outline-3">
+<h3 id="sec-17.1"><span class="section-number-3">17.1</span> The Law of Car </h3>
+<div class="outline-text-3" id="text-17.1">
+
+<p>The primitive car is defined only for non-empty lists.
+</p></div>
+
+</div>
+
+<div id="outline-container-17.2" class="outline-3">
+<h3 id="sec-17.2"><span class="section-number-3">17.2</span> The Law of Cdr </h3>
+<div class="outline-text-3" id="text-17.2">
+
+<p>The primitive cdr is defined only for non-empty lists.
+The cdr of any non-empty list is always another list.
+</p></div>
+
+</div>
+
+<div id="outline-container-17.3" class="outline-3">
+<h3 id="sec-17.3"><span class="section-number-3">17.3</span> The Law of Cons </h3>
+<div class="outline-text-3" id="text-17.3">
+
+<p>The primitive cons takes two arguments.
+The second argument to cons must be a list.
+The result is a list.
+</p></div>
+
+</div>
+
+<div id="outline-container-17.4" class="outline-3">
+<h3 id="sec-17.4"><span class="section-number-3">17.4</span> The Law of Null? </h3>
+<div class="outline-text-3" id="text-17.4">
+
+<p>The primitive null? is defined only for lists.
+</p></div>
+
+</div>
+
+<div id="outline-container-17.5" class="outline-3">
+<h3 id="sec-17.5"><span class="section-number-3">17.5</span> The Law of Eq? </h3>
+<div class="outline-text-3" id="text-17.5">
+
+<p>The primitive eq? takes two arguments.
+Each must be a non-numeric atom.
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-18" class="outline-2">
+<h2 id="sec-18"><span class="section-number-2">18</span> (Templates) </h2>
+<div class="outline-text-2" id="text-18">
+
+</div>
+
+</div>
+
+<div id="outline-container-19" class="outline-2">
+<h2 id="sec-19"><span class="section-number-2">19</span> (Questions) </h2>
+<div class="outline-text-2" id="text-19">
+
+
+<p>
+Is this a set? (apple peaches apple plum) -&gt; No
+</p>
+<p>
+True or False: (set? lat)
+where
+lat is (apples peaches pairs plums      -&gt; #t
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-20" class="outline-2">
+<h2 id="sec-20"><span class="section-number-2">20</span> (Dependencies) </h2>
+<div class="outline-text-2" id="text-20">
+
+
+<p>
+atom?    -&gt; ()
+lat?     -&gt; (atom?)
+member?  -&gt; ()
+rember   -&gt; ()
+firsts   -&gt; ()
+insertR  -&gt; ()
+insertL  -&gt; ()
+subst    -&gt; ()
+subst2   -&gt; ()
+multirember -&gt; ()
+multiinsertR -&gt; ()
+multiinsertL -&gt; ()
+multisubst -&gt; ()
+add1      -&gt; ()
+sub1      -&gt; ()
+(Numbers Games Functions) -&gt; (add1 sub1)
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-21" class="outline-2">
+<h2 id="sec-21"><span class="section-number-2">21</span> (Datatypes) </h2>
+<div class="outline-text-2" id="text-21">
+
+
+</div>
+
+<div id="outline-container-21.1" class="outline-3">
+<h3 id="sec-21.1"><span class="section-number-3">21.1</span> From Chapter 7 </h3>
+<div class="outline-text-3" id="text-21.1">
+
+<p>lat         -&gt; list of atoms -&gt; '(1 2 3 3)
+set1        -&gt; set           -&gt; '(1 2 3)
+set2        -&gt;               -&gt; '(2 3 4)
+l-set       -&gt; list of sets  -&gt; '((a b c) (c a d e) (e f g h a b))
+x           -&gt; anything??    -&gt; ???
+p           -&gt; pair          -&gt; (3 7) ((2) (pair)) (full (house))
+rel         -&gt; list/set of pairs -&gt; ((apples peaches) (pumpkin pie))
+((4 3) (4 2) (7 6) (6 2) (3 4))
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-22" class="outline-2">
+<h2 id="sec-22"><span class="section-number-2">22</span> (Functions in Alphabetical Order) </h2>
+<div class="outline-text-2" id="text-22">
+
+<p>(*application 186)
+(*cond 185)
+(*const 183)
+(*identifier 183)
+(*lambda 184)
+(*quote 183)
+(o+ 60 108)
+(o- 61)
+(ox 65)
+(odiv 75)
+(expt 74)
+(&lt; 73)
+(= 74)
+(&gt; 72 73)
+(??? 74)
+(1st-sub-exp 105 106)
+(2nd-sub-exp 106)
+</p>
+<p>
+(A 156)
+(a-friend? 138)
+(a-pair? 118)
+(add1 59)
+(addtup 64)
+(align 152)
+(all-nums 78)
+(answer-of 185)
+(apply 187)
+(apply-closure 189)
+(apply-primitive 188)
+(arguments-of 187)
+(atom? 10)
+(atom-to-action 181)
+(atom-to-function 134)
+</p>
+<p>
+(body-of 184)
+(build 119)
+</p>
+<p>
+(C 155)
+(cond-lines-of 185)
+(cookies 123)
+</p>
+<p>
+(difference 117)
+</p>
+<p>
+(edd1 108)
+(else? 185)
+(eq?-c 127)
+(eq?-salad 128)
+(eq?-tuna 136)
+(eqan? 78)
+(eqlist? 91 92 94)
+(eqset? 114 115)
+(equal? 93)
+(eternity 151)
+(evcon 185)
+(even? 144)
+(evens-only* 144)
+(evens-only*&amp;co 145)
+(evlis 186)
+(expression-to-action 181)
+(extend-table 176)
+</p>
+<p>
+(first 119)
+(firsts 43 44 46)
+(formals-of 184)
+(fullfun? 122)
+(fun? 120)
+(function-of 187)
+</p>
+<p>
+(initial-table 183)
+(insert-g 132)
+(insertL 51 132)
+(insertL* 86)
+(insertL-f 130)
+(insertR 48-50 132)
+(insertR* 82)
+(insertR-f 130)
+(intersect 116)
+(intersect? 115)
+(intersectall 117)
+</p>
+<p>
+(keep-looking 150)
+</p>
+<p>
+(last-friend 140)
+(last-try 158)
+(lat? 16 19 109)
+(latest-friend 139)
+(leftmost 88)
+(length 76 160)
+(length* 153)
+(list-to-action 182)
+(looking 149)
+(lookup-in-entry 176)
+(lookup-in-entry-help 176)
+(lookup-in-table 177)
+</p>
+<p>
+(makeset 112)
+(meaning 182)
+(member* 87)
+(member? 22)
+(multiinsertL 56 57 141)
+(multiinsertLR 141)
+(multiinsertLR&amp;co 142 143)
+(multiinsertR 56 141)
+(multirember 53 135)
+(multirember&amp;co 137)
+(multirember-eq? 136)
+(multirember-f 135)
+(multiremberT 137)
+(multisubst 57)
+</p>
+<p>
+(new-entry 175)
+(new-friend 139)
+(no-nums 77)
+(non-primitive? 187)
+(numbered? 99-101)
+</p>
+<p>
+(occur 78)
+(occur* 85)
+(one-to-one? 122)
+(one? 79)
+(operator 106)
+</p>
+<p>
+(pick 76)
+(primitive? 187)
+</p>
+<p>
+(question-of? 185)
+</p>
+<p>
+(rember 34 37 41 94 95)
+(rember* 81)
+(rember-eq? 129)
+(rember-f 126 128 129)
+(rempick 77 79)
+(revpair 121)
+(revrel 120 121)
+</p>
+<p>
+(second 119)
+(seconds 122)
+(seqL 131)
+(seqR 131)
+(seqrem 133)
+(seqS 133)
+(sero? 108)
+(set? 111)
+(shift 152)
+(shuffle 154)
+(sub1 59)
+(subset? 113 114)
+(subst 51 133)
+(subst* 85)
+(subst2 52)
+</p>
+<p>
+(table-of 184)
+(text-of 183)
+(the-last-friend 146)
+(third 119)
+(tup+ 69 71)
+</p>
+<p>
+(union 116)
+</p>
+<p>
+(value 102-104 106 134 135 182)
+</p>
+<p>
+(weight* 154)
+(will-stop? 157)
+</p>
+<p>
+(xxx 117)
+</p>
+<p>
+(Y 172)
+(yyy 133)
+</p>
+<p>
+(zub1 108)
+</p></div>
+
+</div>
+
+<div id="outline-container-23" class="outline-2">
+<h2 id="sec-23"><span class="section-number-2">23</span> (Parts of functions) </h2>
+<div class="outline-text-2" id="text-23">
+
+
+</div>
+
+<div id="outline-container-23.1" class="outline-3">
+<h3 id="sec-23.1"><span class="section-number-3">23.1</span> from member? 23 </h3>
+<div class="outline-text-3" id="text-23.1">
+
+<p>(or (eq? (car lat) a)
+(member? a (cdr lat)))
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-24" class="outline-2">
+<h2 id="sec-24"><span class="section-number-2">24</span> (Usages) </h2>
+<div class="outline-text-2" id="text-24">
+
+<p>; adapted from Peteris Krumins
+;
+; Examples of member? succeeding
+;
+(member? 'meat '(mashed potatoes and meat gravy))
+(member? 'meat '(potatoes and meat gravy))
+(member? 'meat '(and meat gravy))
+(member? 'meat '(meat gravy))
+</p>
+<p>
+; Examples of member? failing
+(member? 'liver '(bagels and lox))
+(member? 'liver '())
+</p>
+<p>
+; Examples of or:
+;
+(or (null? '()) (atom? '(d e f g)))   ; true
+(or (null? '(a b c)) (null? '()))     ; true
+(or (null? '(a b c)) (null? '(atom))) ; false
+</p>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: ubuntu
+<a href="mailto:ubuntu@ubuntu.ubuntu-domain">&lt;ubuntu@ubuntu.ubuntu-domain&gt;</a>
+</p>
+<p class="date"> Date: 2011-09-03 19:46:39 EDT</p>
+<p class="creator">HTML generated by org-mode 6.33x in emacs 23</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+   <head>
+      <title>The Logics of Social Structure</title>
+      <link rel="stylesheet" type="text/css" href="common.css">
+      <script type="text/javascript"
+               src="jquery-1.2.1.js"></script>
+          <script type="text/javascript">
+      $(function(){
+        $('li:has(ul)')
+          .click(function(event){
+            if (this == event.target) {
+              $(this).children().toggle();
+              $(this).css('list-style-image',
+                ($(this).children().is(':hidden')) ?
+                  'url(plus.gif)' : 'url(minus.gif)');
+            }
+            return false;
+          })
+          .css('cursor','pointer')
+          .click();
+        $('li:not(:has(ul))').css({
+          cursor: 'default',
+          'list-style-image':'none'
+        });
+      });
+    </script>
+    <style>
+      fieldset { width: 480px }
+    </style>
+   </head>
+   
+   <body>
+      <fieldset>
+      <legend>Rails Depot</legend>
+         <ul>
+            <li>app/
+               <ul>
+                  <li>controllers/
+							<ul>
+								<li>admin_controller.rb</li>
+								<li>application.rb</li>
+								<li>info_controller.rb</li>
+								<li>line_items_controller.rb</li>
+								<li>orders_controller.rb</li>
+								<li>products_controller.rb</li>
+								<li>store_controller.rb</li>
+							</ul>
+						</li>
+                  <li>helpers/</li>
+                  <li>models/</li>
+                  <li>views/
+							<ul>
+								<li>admin/
+									<ul>
+										<li>index.html.erb</li>
+										<li>login.html.erb</li>
+										<li>logout.html.erb</li>
+									</ul>
+								</li>
+
+							</ul>
+						</li>
+               </ul>
+             </li>
+            <li>config/
+               <ul>
+                  <li>environments/</li>
+                  <li>initializers/</li>
+                  <li>locales/</li>
+                  <li>boot.rb</li>
+                  <li>database.yml</li>
+                  <li>environment.rb</li>
+                  <li>routes.rb</li>
+                 </ul>
+              </li>
+            <li>db/
+               <ul>
+                  <li>migrate/</li>
+                  <li>schema.rb</li>
+               </ul>
+            </li>
+             <li>doc/
+               <ul>
+                  <li>README_FOR_APP</li>
+               </ul>
+             </li>
+            <li>lib/
+               <ul>
+                  <li>tasks/</li>
+               </ul>
+              </li>
+            <li>public/
+               <ul>
+                  <li>images/</li>
+                  <li>javascripts/</li>
+						<li>stylesheets/</li>
+						<li>404.html</li>
+						<li>422.html</li>
+						<li>500.html</li>
+						<li>dispatch.cgi</li>
+						<li>dispatch.fcgi</li>
+						<li>dispatch.rb</li>
+						<li>favicon.ico</li>
+						<li>index.html</li>
+						<li>robots.txt</li>
+					</ul>
+            </li>
+             <li>script/
+               <ul>
+                  <li>performance/</li>
+                  <li>process/</li>
+						<li>about</li>
+						<li>console</li>
+						<li>dbconsole</li>
+						<li>destroy</li>
+						<li>generate</li>
+						<li>plugin</li>
+						<li>runner</li>
+						<li>server</li>
+					</ul>
+             </li>
+            <li>test/
+               <ul>
+                  <li>fixtures/</li>
+                  <li>functional/</li>
+                  <li>integration/</li>
+                  <li>performance/</li>
+                  <li>unit/</li>
+                  <li>test_helper.rb</li>
+                 </ul>
+              </li>
+            <li>vendor/
+               <ul>
+                  <li>(Empty)</li>
+               </ul>
+            </li>
+            <li>Rakefile</li>
+            <li>README</li>
+         </ul>
+      </fieldset>
+   </body>
+</html>
+

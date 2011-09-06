@@ -1154,6 +1154,119 @@ Use help functions to abstract from representations
               (align (second pora)))))))
 (...to be continued...)
 * ((10. What is the Value of All of This?) 174)
+comments, etc from pkrumins
+** atom?
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
+** entry examples
+'((app ent bev)
+  (pat boe vin))
+
+'((app ent bev)
+  (bee bee bee))
+
+'((bev des)
+  ((f i) (n o w u)))
+
+** build
+(define build
+  (lambda (s1 s2)
+    (cons s1 (cons s2 '()))))
+
+(define new-entry build)
+
+; Test it out and build the example entries above
+
+(build '(app ent bev)
+       '(pat boe vin))
+
+(build '(app ent bev)
+       '(bee bee bee))
+
+(build '(bev des)
+       '(f i) (n o w u))
+
+** first second and third
+(define first
+  (lambda (p)
+    (car p)))
+
+(define second
+  (lambda (p)
+    (car (cdr p))))
+
+(define third
+  (lambda (l)
+    (car (cdr (cdr l)))))
+** lookup-in-entry
+(define lookup-in-entry
+  (lambda (name entry entry-f)
+    (lookup-in-entry-help
+      name
+      (first entry)
+      (second entry)
+      (entry-f)))
+** lookup-in-entry-help
+(define lookup-in-entry-help
+  (lambda (name names values entry-f)
+    (cond
+      ((null? names) (entry-f name))
+      ((eq? (car names) name) (car values))
+      (else
+        (lookup-in-entry-help
+	  name
+	  (cdr names)
+	  (cdr values)
+	  entry-f)))))
+** lookup-in-entry examples
+(lookup-in-entry
+  'ent
+  '((app ent bev) (pat boe vin))
+  (lambda (n) '()))
+
+(lookup-in-entry
+  'no-such-item
+  '((app ent bev) (pat boe vin))
+  (lambda (n) '()))
+
+** table examples
+; A table (also called an environment) is a list of entries. 
+; Here are some examples.
+
+'()
+'(((app ent bev) (pat boe vin))
+  ((bev des) ((f i) (n o w u))))
+** lookup-in-table
+(define lookup-in-table
+  (lambda (name table table-f)
+    (cond
+      ((null? table) (table-f name))
+      (else
+        (lookup-in-entry
+	  name
+	  (car table)
+	  table-f)))))
+
+(lookup-in-table
+  'beverage
+  '(((ent des) (spa spu))
+    ((app ent bev) (foo tas goo)))
+  (lambda (n) '()))
+** expression-to-action
+(define expression-to-action
+  (lambda (e)
+    (cond
+      ((atom? e) (atom-to-action e))
+      (else
+        (list-to-action e)))))
+** atom-to-action
+(define atom-to-action
+  (lambda (e)
+    (cond
+      ((number? e) *const)
+      (...to be continued...)
+(...to be continued...)
 * (Intermission 192)
 * (Index 194)
 * (General Functions)
@@ -1204,35 +1317,56 @@ The primitive null? is defined only for lists.
 The primitive eq? takes two arguments.
 Each must be a non-numeric atom.
 * (Templates)
-* (Questions)
-
-Is this a set? (apple peaches apple plum) -> No
-
-True or False: (set? lat)
-where
-  lat is (apples peaches pairs plums      -> #t
-
 * (Dependencies)
+Notes from the interface jquery library
+** var dependencies
+var dependencies = {
+        accordion : ['iutil'],
+        carousel : ['iutil'],
+        idrop : ['iutil', 'idrag'],
+        idrag : ['accordion']
+};
 
-atom?    -> ()
-lat?     -> (atom?)
-member?  -> ()
-rember   -> ()
-firsts   -> ()
-insertR  -> ()
-insertL  -> ()
-subst    -> ()
-subst2   -> ()
-multirember -> ()
-multiinsertR -> ()
-multiinsertL -> ()
-multisubst -> ()
-add1      -> ()
-sub1      -> ()
-(Numbers Games Functions) -> (add1 sub1)
+var schemer-dependencies = {
+        ch7  : ['ch3'],
+	ch5  : ['ch3'],
+	ch10 : ['ch3', 'ch7']
+};
 
+** <body>
+<html>
+<head>stuff-and-things</head>
+<body>
+<div id="scripts">
+        <a style="top: 40px; left: 50px;" href="#" id="ch1">ch1</a>
+        <a style="top: 40px; left: 190px;" href="#" id="ch2">ch2</a>
+        <a style="top: 40px; left: 330px;" href="#" id="ch3">ch3</a>
+        <a style="top: 70px; left: 50px;" href="#" id="ch4">ch4</a>
+        <a style="top: 70px; left: 190px;" href="#" id="ch5">ch5</a>
+	<a style="top: 70px; left: 330px;" href="#" id="ch6">ch6</a>
+        <a style="top: 100px; left: 50px;" href="#" id="ch7">ch7</a>
+	<a style="top: 100px; left: 190px;" href="#" id="ch8">ch8</a>
+	<a style="top: 100px; left: 330px;" href="#" id="ch9">ch9</a>
+	<div style="opacity: 0.8;" id="overlay">&nsbp;</div>
+</div>
+</body>
 
+* (Datatypes)
+** From Chapter 7
+lat         -> list of atoms -> '(1 2 3 3)
+set1        -> set           -> '(1 2 3)
+set2        ->               -> '(2 3 4)
+l-set       -> list of sets  -> '((a b c) (c a d e) (e f g h a b))
+x           -> anything??    -> ???
+p           -> pair          -> (3 7) ((2) (pair)) (full (house))
+rel         -> list/set of pairs -> ((apples peaches) (pumpkin pie))
+                                    ((4 3) (4 2) (7 6) (6 2) (3 4))
+fun         -> list/set of pairs -> ((8 3) (4 2) (7 6) (6 2) (3 4))
+                                    ((a 1) (b 2) (c 3) (d 4) (e 5))
+fullfun     -> list/set of pairs -> ((8 3) (4 8) (7 6) (6 2) (3 4))
+                                     (1 a) (2 b) (3 c) (4 d) (5 e))
 
+(one-to-one? '((chocolate chip) (doughy cookie)))                                    
 * (Functions in Alphabetical Order)
 (*application 186)
 (*cond 185)
@@ -1429,3 +1563,149 @@ sub1      -> ()
 (or (null? '(a b c)) (null? '()))     ; true
 (or (null? '(a b c)) (null? '(atom))) ; false
 
+
+* (Example Web Page Structure)
+7. Friends and Relations
+
+(...copy the high level description from github...)
+
+5 dependencies (atom?, member?, multirember, equal?) 
+29 Functions
+
+set? set? makeset makeset subset? subset? subset? eqset?
+eqset? eqset? eqset? intersect? intersect? intersect?
+intersect union xxx intersectall a-pair? first second
+build third fun? revrel revrel revpair revrel fullfun?
+one-to-one? 
+
+To make sure we understand what the original function
+is, we can use a function that we are defining in this
+example, the makeset function. So we have our original
+list of atoms, which we can write as:
+
+(define lat 
+'(set? set? makeset makeset subset? subset? subset? eqset?
+eqset? eqset? eqset? intersect? intersect? intersect?
+intersect union xxx intersectall a-pair? first second
+build third fun? revrel revrel revpair revrel fullfun?
+one-to-one?))
+
+After running our program, we obtain the following:
+
+'(set? makeset subset? eqset? intersect? intersect union
+  xxx intersectall a-pair? first second build third
+  fun? revpair revrel fullfun? one-to-one?)
+
+A much more manageable 19 functions, plus the dependencies
+
+(set? lat)                  -> determines whether or not a lat is a set
+(makeset lat)               -> see complicated definition on page 113
+(subset? set1 set2)         -> determines if each atom in set1 is also in set2
+(eqset? set1 set2)          -> determines if two sets are equal to each other
+(intersect? set1 set2)      -> asks if set1 and set2 have an atom in common 
+(intersect set1 set2)       -> makes a list of the intersection of set1 and set2
+(union set1 set2)           -> combines two sets into one set
+(xxx set1 set2)             -> set difference function
+(intersectall l-set)        -> finds common elements in a list of sets
+(a-pair? x)                 -> determines if x is a list with only two S-expressions
+(first p)                   -> gets the first part of a pair
+(second p)                  -> gets the second part of a pair
+(build s1 s2)               -> builds a list of sets from two other sets
+(third l)                   -> gets the third element of a list
+(fun? rel)                  -> takes a list of sets (rel) and determines if the first element of each is unique
+(revpair pair)              -> reverses the two components of a pair
+(revrel rel)                -> reverses components of a list of pairs
+(fullfun? fun)              -> takes a list of sets (rel) and determines if the second element of each is unique
+(one-to-one? fun)           -> apparently this is the same as the previous one! This is a good thing to explain.
+
+In other words, the question you should be able to answer by the end of the
+chapter is:
+
+How are these functions the same? 
+What do they do?
+
+(define fullfun?
+  (lambda (fun)
+    (set? (seconds fun))))
+
+(define one-to-one?
+  (lambda (fun)
+    (fun? (revrel fun))))
+
+So really what we are asking is about these
+lines:
+
+(set? (seconds fun))
+
+and
+
+(fun? (revrel fun))
+
+This is the punchline so to speak. This will
+await me the next time I pick up this document.
+Thus ends my writing for the time being: 1:40 
+on September 3, 2011.
+
+The first thing to be clear on is the definition
+of fun:
+
+What is a fun?
+a fun is a type of rel.
+
+What is a rel?
+a rel is a set of pairs:
+
+((apples peaches)
+ (pumpkin pie))
+
+So what is a fun?
+a fun is a set of pairs in which the first atoms
+of each pair within the set form a set. 
+
+The definition of fun is:
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
+
+(...to be continued...)
+* (Minimalist Description of Chapter 7)
+This section was greatly influenced by Peteris Krumins
+excellent set of notes, which can be found on github.
+** member function from Chapter 2
+** atom? function from Chapter 1
+** example of a set
+** example of not a set
+** the set? function determines if a given lat is a set
+** examples of set?
+** the makeset function takes a lat and produces a set
+** example of makeset
+** makeset via multirember from Chapter 3
+(define multirember
+  (lambda (a lat)
+    (cond
+      ((null? lat) '())
+      ((eq? (car lat) a)
+       (multirember a (cdr lat))))))
+
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) '())
+      (else
+        (cons (car lat)
+	      (makeset (multirember (car lat) (cdr lat))))))))
+** test makeset
+** the subset? function determines if set1 is a subset of set2
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      ((member? (car set1) set2)
+       (subset? (cdr set1) set2))
+      (else #f))))
+** examples of subset?
+** a shorter version of subset?
+** tests of the new subset?
+** the eqset? function determines if two sets are equal
+** examples of eqset?
+** the intersect function?  

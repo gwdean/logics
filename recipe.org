@@ -1,0 +1,46 @@
+Example Design Recipes
+
+* area-of-ring
+;; from HTDP - pp 17
+;; Contract: area-of-ring : number number -> number
+;;
+;; Purpose: to compute the area of a ring whose 
+;;          radius is outer and whose hole has
+;;          a radius of inner.
+;;
+;; Example: (area-of-ring 5 3) should produce 50.24
+;;
+;; Definition: [refines the header]
+(define (area-of-ring outer inner)
+  (- (area-of-disk outer)
+     (area-of-disk inner)))
+
+;; Tests
+(area-of-ring 5 3)
+
+;; Expected Value
+50.24
+* profit
+** Contracts, headers, purpose statements
+(...fill this in from notebook...)
+** working code
+(define (profit ticket-price)
+  (- (revenue ticket-price)
+     (cost ticket-price)))
+
+(define (revenue ticket-price)
+  (* (attendance ticket-price) ticket-price))
+
+(define (cost ticket-price)
+  (+ 180
+    (* .04 (attendance ticket-price))))
+
+(define (attendance ticket-price)
+  (+ 120
+    (* (/ 15 .10) (- 5.00 ticket-price))))
+
+* First and most important guideline of programming
+** GUIDELINE ON AUXILIARY FUNCTIONS
+"Formulate auxiliary function definitions for every
+dependency between quantities mentioned in the problem
+statement or discovered with example cases"

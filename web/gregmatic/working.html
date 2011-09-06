@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+   <head>
+      <title>Gregmatic</title>
+      <link rel="stylesheet" type="text/css" href="common.css">
+      <script type="text/javascript"
+               src="jquery-1.2.1.js"></script>
+          <script type="text/javascript">
+      $(function(){
+        $('li:has(ul)')
+          .click(function(event){
+            if (this == event.target) {
+              $(this).children().toggle();
+              $(this).css('list-style-image',
+                ($(this).children().is(':hidden')) ?
+                  'url(plus.gif)' : 'url(minus.gif)');
+            }
+            return false;
+          })
+          .css('cursor','pointer')
+          .click();
+        $('li:not(:has(ul))').css({
+          cursor: 'default',
+          'list-style-image':'none'
+        });
+      });
+    </script>
+    <style>
+      fieldset { width: 100px }
+    </style>
+   </head>
+   
+<body>
+<fieldset>
+<legend>Legend</legend>
+
+   <ul>
+    <li>li
+     <ul>
+      <li>li</li>
+      <li>li</li>
+     </ul>
+    </li>
+   </li>
+   <li>li
+    <ul>
+     <li>li</li>
+     <li>li</li>
+    </ul>
+   
+</li>
+</ul>
+</fieldset>
+<fieldset>
+<legend>Legend</legend>
+ <ul> 
+    <li>li
+     <ul>
+      <li>li</li>
+      <li>li</li>
+     </ul>
+    </li>
+   </li>
+   <li>li
+    <ul>
+     <li>li</li>
+     <li>li</li>
+    </ul>
+   </li>
+  </ul>
+
+</fieldset>
+<form>form</form>
+</body>
+</html>
+
