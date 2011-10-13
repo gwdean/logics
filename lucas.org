@@ -1,0 +1,93 @@
+This represents another attempt for me to understand
+to my personal satisfaction, the mathematics behind 
+the Lucas Tower.
+
+* Hofstadter 1983
+** Statement of the problem
+In the great Temple of Brahma in Benares, on a brass
+plate beneath the dome that marks the Center of the
+World, there are 64 disks of pure gold which the 
+priests carry one at a time between three diamond 
+needles according to Brahma's immutable law: No disk
+may be placed on a smaller disk. In the Beginning of
+the World, all 64 disks formed the Tower of Brahma on
+one needle. Now, however, the process of transfer of
+the tower from one needle to another is in midcourse.
+When the last disk is finally in place, once again 
+forming the Tower of Brahma but on a different needle,
+then will come the End of the World, and All will
+turn to dust.
+
+** Warmup
+ab ac bc ab ca cb ab
+12 13 23 12 31 32 12
+
+ab ac bc    ab    ca cb ab
+12 13 23    12    31 32 12
+
+The first group accomplishes a transfer of a 2-tower
+from needle a to needle c, thus freeing up the largest
+disk.
+
+The middle move, ab, picks up that big heavy disk and
+carries it over from needle a to needle b. 
+
+The final group is very much like the initial group, in that it
+transfers the 2-tower back from needle c to needle b.
+
+Thus the solution to solving three depends on being able to
+move two. Similarly the solution to moving 64 depends on being
+able to move 63.
+
+Now try to write a Lisp function that will give you a
+solution to the Lucas Tower for n disks.
+** Hanoi in English
+(sn dn hn) -> (source destination helping)
+( 1  2  3) -> (identities for sn dn hn)
+
+To move a tower of height n from sn to dn making use of hn:
+   if n = 1, then just carry that one disk directly from sn to dn
+   otherwise, do the following three steps:
+
+   (1) move a tower of height n-1 from sn to hn making use of dn;
+   (2) carry 1 disk from sn to dn;
+   (3) move a tower of height n-1 from hn to dn making use of sn;
+** Lisp Hanoi version 1
+(def move-tower (lambda (n sn dn hn)
+   (cond ((eq n 1) (carry-one-disk sn dn))
+         (t (move-tower (sub1 n) sn hn dn)
+	    (carry-one-disk sn dn)
+	    (move-tower (sub1 n) hn dn sn)))))
+** Information conveyed positionally
+"Where are the Lisp equivalents of the English words
+"from", "to" and "making use of"? They seem to have
+disappeared! So how can the genie know which needle
+is to play which role at each stage? 
+
+The answer is,this information is conveyed positionally.
+
+In the function definition there are 4 parameters:
+one integer and three dummy needles.
+
+initial list of parameters:  (sn dn hn)
+after first recursive call:  (sn hn dn)
+after second recursive call: (hn dn sn)
+* Working Scheme Version
+http://hansonchar.blogspot.com/2006/01/tower-of-hanoi-in-scheme.html
+(define (move N from to spare)
+  (if (= N 0)
+      (display "")
+      (begin 
+        (move (- N 1) from spare to)
+        (display "move from ")(display from)(display " to ")(display to)(display "\n")
+        (move (- N 1) spare to from))))
+
+; (from to spare)  -> (1 2 3)
+; (from spare to)  -> (1 3 2)
+; (spare to from)  -> (3 2 1)
+
+
+
+
+
+	

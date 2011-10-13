@@ -1,0 +1,20 @@
+This is an explanation of the A* algorithm.
+Adapted from Haverbeke's Eloquent JavaScript,
+online version.
+
+The A* is used when there are a lot of paths
+that someone can travel, and the cost of 
+getting lost makes going backwards prohibitively
+expensive.
+
+There are two pieces of data to keep track of:
+
+Open List    -> contains the partial routes that must
+                still be explored
+
+Reached List -> Nodes we have seen/ shortest partial route
+
+Start by adding a route that contains only the starting
+node to the open list, and recording it in the reached list.
+
+(...to be continued...)

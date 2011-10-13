@@ -1,0 +1,28 @@
+Notes from Mike's World-O-Programming
+-------------------------------------
+http://mvanier.livejournal.com/2897.html
+
+The Y combinator is a higher-order function.
+It takes a single argument, which is a non-
+recursive function. It returns a version of
+the function that isn't recursive.
+
+A combinator is a lambda expression with no
+free variables.
+
+A free variable (i.e. a name/identifier in
+the language) is a variable which isn't a 
+bound variable. 
+
+A bound variable is a variable which is 
+contained inside the body of a lambda 
+expression that has that variable name as
+one of its arguments.
+
+(lambda (x) x) ; -> x is bound
+(lambda (x) y) ; -> y is bound     
+(lambda (x) (lambda (y) x))
+(lambda (x) (lambda (y) (x y)))
+(x (lambda (y) y))
+((lambda (x) x) y)
+

@@ -1,0 +1,55 @@
+This represents another attempt for me to understand
+to my personal satisfaction, the mathematics behind 
+the Lucas Tower.
+
+* Hofstadter 1983
+** Statement of the problem
+In the great Temple of Brahma in Benares, on a brass
+plate beneath the dome that marks the Center of the
+World, there are 64 disks of pure gold which the 
+priests carry one at a time between three diamond 
+needles according to Brahma's immutable law: No disk
+may be placed on a smaller disk. In the Beginning of
+the World, all 64 disks formed the Tower of Brahma on
+one needle. Now, however, the process of transfer of
+the tower from one needle to another is in midcourse.
+When the last disk is finally in place, once again 
+forming the Tower of Brahma but on a different needle,
+then will come the End of the World, and All will
+turn to dust.
+
+** Warmup
+ab ac bc ab ca cb ab
+12 13 23 12 31 32 12
+
+ab ac bc    ab    ca cb ab
+12 13 23    12    31 32 12
+
+The first group accomplishes a transfer of a 2-tower
+from needle a to needle c, thus freeing up the largest
+disk.
+
+The middle move, ab, picks up that big heavy disk and
+carries it over from needle a to needle b. 
+
+The final group is very much like the initial group, in that it
+transfers the 2-tower back from needle c to needle b.
+
+Thus the solution to solving three depends on being able to
+move two. Similarly the solution to moving 64 depends on being
+able to move 63.
+
+Now try to write a Lisp function that will give you a
+solution to the Lucas Tower for 
+
+* Working Scheme Version
+http://hansonchar.blogspot.com/2006/01/tower-of-hanoi-in-scheme.html
+(define (move N from to spare)
+  (if (= N 0)
+      (display "")
+      (begin 
+        (move (- N 1) from spare to)
+        (display "move from ")(display from)(display " to ")(display to)(display "\n")
+        (move (- N 1) spare to from))))
+
+	

@@ -1,0 +1,23 @@
+// various descriptions of closures
+
+* notes from wiki/Closure_(computer_science)
+(define (best-selling-books threshold)
+  (filter
+    (lambda (book)
+      (>= (book-sales book) threshold))
+  book-list))
+
+function bestSellingBooks(threshold) {
+  return bookList.filter(
+      function (book) { return book.sales >= threshold; }
+   );
+}
+
+// Return a function that approximates the derivative of f
+// using an interval of dx, which should be appropriately
+// small.
+function derivative(f, dx) {
+  return function (x) {
+    return (f(x + dx) - f(x)) / dx;
+  };
+}

@@ -1,0 +1,30 @@
+; adapted from the instructor's manual accompanying sicp
+
+The Lucas Tower provides a beautiful example
+of tree recursion and provides a good context
+for understanding recursive processes.
+
+Assume you have three pegs and a set of disks,
+all of different diameters, with holes in them
+(so they can slide onto the pegs).
+
+Wishful Thinking
+----------------
+1- Decide what will make the problem simpler;
+2- Pretend you already know how to solve the
+   simpler version of the problem;
+3- Figure out how to use the solution of the 
+   simpler problem to construct a solution to
+   the original problem.
+
+Solving through Wishful Thinking
+--------------------------------
+Move all but the bottom disk to the extra peg (by
+wishful thinking), thus leaving the biggest disk
+behind.
+
+Move the leftover(biggest) disk to the destination
+peg.
+
+Move the pile of disks we stored on the extra peg
+to the destination peg

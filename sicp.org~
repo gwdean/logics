@@ -1,0 +1,49 @@
+A collection of notes on Sussman/Abelson's "Structure and
+Interpretation of Computer Programs"
+
+* 5 Computing with Register Machines
+
+Machine design vs. machine-language programming
+
+"In sections 5.1-5.4 we deal with the design of special-
+purpose machines, not the programming of general-purpose
+machines. To emphasize this, we speak of developing 
+controller instruction sequences, not controller programs.
+The purpose of this approach is to demystify computation:
+Designing machines is a good way to get people to think
+about the mechanicalness of computation."
+
+** 5.1 Designing Register Machines
+
+*** Describing machine designs
+Machines are first described by drawing data-path and 
+controller diagrams, then by a language for describing
+machines.
+
+Data paths can have three kinds of places that hold data:
+(1) registers   (wide rectangles)
+(2) constants   (triangles)
+(3) stacks      (tall rectangles)
+
+Data paths can have three kinds of operations that operate
+on constants or the contents of registers:
+(1) operations that compute values  (trapezoids)
+(2) tests                           (circles)
+(3) actions                         (trapezoids with controlling buttons)
+
+Lines with arrows indicating the direction of information
+flow connect registers and constants to operations. Lines
+with buttons as well as arrows connect registers to stacks,
+and operations, constants, stacks, and other registers
+to registers.
+
+(note on edge-triggered flip-flops vs. transparent latches)
+
+Sample function -> gcd
+
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
+
+

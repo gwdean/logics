@@ -1563,7 +1563,6 @@ fullfun     -> list/set of pairs -> ((8 3) (4 8) (7 6) (6 2) (3 4))
 (or (null? '(a b c)) (null? '()))     ; true
 (or (null? '(a b c)) (null? '(atom))) ; false
 
-
 * (Example Web Page Structure)
 7. Friends and Relations
 
@@ -1709,3 +1708,98 @@ excellent set of notes, which can be found on github.
 ** the eqset? function determines if two sets are equal
 ** examples of eqset?
 ** the intersect function?  
+* (Chaitin 2005)
+The goal of this section is to explain the ideas found in
+Chaitin's "Metamath!" in the Racket language.
+
+A first step towards this goal is to turn the following 
+function into idiomatic Racket that can be run in DrRacket.
+
+(let (factorial n)
+  (if (= n 0)
+      1
+      (* n (factorial (- n 1)))
+  )
+(let (map f x)
+  (if (atom x)
+      x
+      (cons (f (car x))
+            (map f (cdr x))
+      )
+  )
+
+(map factorial (' (4 1 3 2 5)))
+
+))
+
+this gives:
+
+(24 1 6 2 120)
+
+With an assist from http://hashcollision.org/whalesong/index.html
+we can write the first part of the function as follows:
+
+(define (fact x)
+  (cond
+    [(= x 0) 1]
+    [else (* x (fact (sub1 x)))]))
+
+There is a built in 'map' function in Racket, so the following 
+works:
+
+(map fact '(1 2 3))
+
+But just in case we needed to make our own at some point, lets
+take a first crack at it:
+
+(...WARNING -> FIRST DRAFT -> DOES NOT WORK
+
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
+
+(define (mp f x)
+  (cond
+    [(atom? x) x)
+    [(else (cons (f (car x))
+                 (mp f (cdr x)))))))
+
+(mp fact '(1 2 3))
+* (Chapter 7 -> "Modern Racket")
+Prototype -> "boring old factorial" from Whalesong
+(define (fact x)
+  (cond
+    [(= x 0)
+     1]
+    [else
+     (* x (fact (sub1 x)))]))
+
+The goal is to take the functions in the "Friends-
+and-Relations" section of the Little Schemer and
+translate them into the form above.
+
+Here's our attempt at "member?"
+
+(define (member? a lat)
+  (cond
+    [(null? lat)
+     #f]
+    [else
+     (or (eq? (car lat) a)
+              (member? a (cdr lat)))]))
+
+"atom?" looks like this:
+
+(define (atom? x)
+  (and (not (pair? x)) (not (null? x))))
+
+One more for the time being..."set?"
+
+(define (set? lat)
+  (cond
+    [(null? lat)
+     #t]
+    [(member? (car lat) (cdr lat))
+     #f]
+    [else
+     (set? (cdr lat))]))

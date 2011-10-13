@@ -1,0 +1,241 @@
+; notes from "JavaScript: The Good Parts"
+
+* 1. Good Parts
+** Why JavaScript?
+** Analyzing JavaScript
+** A Simple Testing Ground
+*** program.html
+<html><body><pre><script src="program.js">
+</script></pre></body></html>
+
+*** program.js
+document.writeln('Yo!');
+*** method method
+Function.prototype.method = function (name, func) {
+    this.prototype[name] = func;
+    return this;
+};
+* 2. Grammar
+** Railroad Diagrams
+*** Rules
+1- Start on left edge and follow tracks to right edge
+2- As you go, you will encounter literals in ovals,
+and rules or descriptions in rectangles.
+3- Any sequence that can be made by following the tracks 
+is legal.
+4- Any sequence that cannot be made by following the tracks
+is not legal.
+5- Railroad diagrams with one bar at each end allow whitespace
+to be inserted between any pair of tokens. Railroad diagrams
+with two bars at each end do not. 
+
+The grammar of the good parts presented in this chapter is
+significantly simpler than the grammar of the whole language.
+** Whitespace
+** Names
+** Numbers
+** Strings
+** Statements
+** Expressions
+** Literals
+** Functions
+* 3. Objects
+** Object Literals
+An object literal is a pair of curly braces surrounding
+zero or more name/value pairs. An object literal can
+appear anywhere an expression can appear:
+*** Crockford's Examples
+var empty_object = {};
+
+var stooge = {
+    "first-name": "Jerome",
+    "last-name": "Howard"
+};
+
+var flight = {
+    airplane: "Oceanic",
+    number: 815,
+    departure: {
+        IATA: "SYD",
+	time: "2004-09-22 14:55",
+	city: "Sydney"
+    },
+    arrival: {
+        IATA: "LAX"
+        time: "2004-09-23 10:42",
+	city: "Los Angeles"
+    }
+};
+*** My examples
+var yo = {};
+
+var wu = {
+    "name":"RZA",
+    "nick":"Bobby Steels"
+};
+    
+** Retrieval
+** Update
+** Reference
+** Prototype
+** Reflection
+** Enumeration
+** Delete
+** Global Abatement
+* 4. Functions
+** Function Objects
+** Function Literal
+A function literal can appear anywhere that an expression can appear.
+Functions can be defined inside of other functions. An inner function
+of course has access to its parameters and variables. An inner function
+also enjoys access to the parameters and variables of the functions it
+is nested within. 
+
+Let me repeat this. I somehow missed this all these months:
+
+"An inner function of course has access to its parameters and variables.
+ An inner function also enjoys access to the parameters and variables
+ of the functions it is nested within."
+
+The function object created by a function literal contains a link to
+that outer context. This is called closure. This is the source of 
+enormous expressive power.
+*** Function objects are created with function literals:
+// Create a variable called add and store a function
+// in it that adds two numbers.
+
+var add = function (a, b) {
+    return a + b;
+};
+
+var add = function (a, b) { return a + b; };
+var sub = function (a, b) { return a - b; };
+*** A function literal has four parts:
+**** 1- the reserved word function
+**** 2- function's name (optional)
+The function can use its name to call itself recursively.
+The name can also be used by debuggers and development
+tools to identify the function. If a function is not given
+a name, as shown above, it is said to be anonymous.
+**** 3- set of parameters of the function (wrapped in parentheses)
+Within the parentheses is a set of zero or more parameter names,
+separated by commas. These names will be defined as variables in
+the function. Unlike ordinary variables, instead of being initialized
+as undefined, they will be initialized to the arguments supplied when
+the function is invoked.
+**** 4- set of statements wrapped in {curly braces} 
+These statements are the body of the function. They are executed
+when the function is invoked. 
+** Invocation
+This section explains the notorious (to me anyway) "this" construct. 
+
+Invoking -> suspends the execution of the current function, passing
+            control and parameters to the new function.
+
+In addition to the declared parameters, every function receives two
+additional parameters: "this" and "arguments"
+
+The value of "this" is determined by its "invocation pattern", of 
+which there are four. These patterns differ in how the parameter
+"this" is initialized.
+
+*** Method Invocation Pattern
+Method -> function stored as the property of an object
+
+When a method is invoked, "this" is bound to that object.
+
+// Create myObject. It has a value and an increment
+// method. The increment method takes an optional
+// parameter. If the argument is not a number, then 1
+// is used as the default.
+
+var myObject = {
+    value: 0,
+    increment: function (inc) {
+        this.value += typeof inc === 'number' ? inc : 1;
+    }
+};
+
+myObject.increment();
+document.writeln(myObject.value);    // 1
+
+myObject.increment(2);
+document.writeln(myObject.value);    // 3
+
+*** Function Invocation Pattern
+*** Constructor Invocation Pattern
+*** Apply Invocation Pattern
+
+
+** Arguments
+** Return
+** Exceptions
+** Augmenting Types
+** Recursion
+** Scope
+** Closure
+** Callbacks
+** Module
+** Cascade
+** Curry
+** Memoization
+* 5. Inheritance
+** Pseudoclassical
+** Object Specifiers
+** Prototypal
+** Functional
+** Parts
+* 6. Arrays
+** Array Literals
+** Length
+** Delete
+** Enumeration
+** Confusion
+** Methods
+** Dimensions
+* 7. Regular Expressions
+** An Example
+** Construction
+** Elements
+* 8. Methods
+* 9. Style
+* 10. Beautiful Features
+* Appendix A. Awful Parts
+* Appendix B. Bad Parts
+* Appendix C. JSLint
+* Appendix D. Syntax Diagrams
+* Appendix E. JSON
+** JSON Syntax
+** Using JSON Securely
+** A JSON Parser
+return function (source, reviver) {
+    var result;
+    
+    text = source;
+    at = 0;
+    ch = ' ';
+    result = value();
+    white();
+    if (ch) {
+	error("Syntax error");
+    }
+
+return typeof reviver == 'function' ?
+	function walk(holder, key) {
+	    var k, v, value = holder[key];
+	    if (value && typeof value === 'object') {
+		for (k in value) {
+		    if (Object.hasOwnProperty.call(value, k)) {
+			v = walk(value, k);
+			if (v !== undefined) {
+			    value[k] = v;
+			} else {
+			    delete value[k];
+			}
+		    }
+		}
+	    }
+	    return reviver.call(holder,key,value);
+	}('': result}, '') : result;
+};
+}();

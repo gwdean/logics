@@ -1,0 +1,23 @@
+// adapted from (flanagan 2006 161-162)
+
+function Complex(real, imaginary) {
+    this.x = real;       
+    this.y = imaginary;
+}
+
+Complex.prototype.magnitude = function() {...stuff...};
+Complex.prototype.negative = function() {...stuff...};
+Complex.prototype.add = function(that) {...stuff...}
+Complex.prototype.multiply = function(that) {...stuff...}  
+Complex.prototype.toString = function() {...stuff...};
+Complex.prototype.equals = function(that) {...stuff...}
+Complex.prototype.valueOf = function() {...stuff...}
+
+Complex.sum = function (a, b) {...stuff...};
+Complex.product = function (a, b) {...stuff...};
+
+Complex.ZERO = new Complex(0,0);
+Complex.ONE = new Complex(1,0);
+Complex.I = new Complex(0,1);
+
+  
